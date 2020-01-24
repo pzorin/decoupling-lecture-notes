@@ -1,0 +1,117 @@
+\documentclass[11pt,oneside]{article}
+
+\usepackage{ifxetex,ifluatex}
+\newif\ifxetexorluatex
+\ifxetex
+\xetexorluatextrue
+\else
+\ifluatex
+\xetexorluatextrue
+\else
+\xetexorluatexfalse
+\fi
+\fi
+  
+\ifxetexorluatex
+\usepackage{fontspec}
+\ifxetex
+\usepackage{xltxtra}
+\fi
+\defaultfontfeatures{Mapping=tex-text}
+\usepackage{unicode-math}
+\setmainfont{STIX Two Text}[Ligatures={Common}]
+\setmathfont{STIX Two Math}
+\PassOptionsToPackage{unicode,psdextra}{hyperref}
+\else
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\fi
+
+\usepackage{microtype}
+\usepackage{hyperref}
+\hypersetup{
+  pdfstartview=FitH,
+  pdfauthor={Pavel Zorin-Kranich},
+  pdftitle={Lecture notes on decoupling},
+  pdfborder={0 0 0},
+  bookmarks=true,
+  unicode
+}
+\def\C{\mathbb{C}} % redefined by hyperref
+
+\usepackage[paperheight=279mm,paperwidth=16cm,textheight=26cm,textwidth=14cm]{geometry}
+\usepackage[english]{babel}
+
+\usepackage[style=alphabetic]{biblatex}
+\addbibresource{decoupling.bib}
+\usepackage{amsxtra}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\input{macros.tex}
+
+\newcommand{\MlRs}{\mathrm{MlRs}}
+
+% Maximal Schr\"odinger
+\newcommand{\eit}{e^{i t \Delta}}
+\newcommand{\eir}{e^{i r \Delta}}
+
+\newcommand{\RefStr}{\mathrm{RefStr}}
+\newcommand{\MultRefStr}{\mathrm{MultRefStr}}
+\newcommand{\FrStr}{\mathrm{FrStr}}
+
+\newcommand{\bB}{\mathfrak{B}} % ball Big
+\newcommand{\bM}{\mathfrak{M}} % ball Medium
+\newcommand{\bS}{\mathfrak{S}} % ball Smal
+\newcommand{\bBp}{\mathfrak{B}'} % ball Big previous scale
+\newcommand{\bMp}{\mathfrak{M}'} % ball Medium previous scale
+\newcommand{\bSp}{\mathfrak{S}'} % ball Small previous scale
+\newcommand{\bO}{\mathfrak{O}} % ball Out
+\newcommand{\bI}{\mathfrak{I}} % ball In
+\newcommand{\bOp}{\mathfrak{O}'} % ball Out previous scale
+\newcommand{\bIp}{\mathfrak{I}'} % ball In previous scale
+
+%% brascamp-lieb notation
+\renewcommand{\div}{\operatorname{div}}
+\newcommand{\diag}{\operatorname{diag}}
+
+\def\p{\bfp}
+\def\A{\bfA}
+\def\f{\bff}
+
+% Moment curve
+\newcommand{\level}{\mathcal{V}}
+\newcommand{\sublevel}{\mathcal{S}}
+\newcommand{\upset}{{\uparrow}} % This is a unary operator. The inner pair of braces in needed for correct spacing.
+\newcommand{\Dset}{\mathcal{D}}
+
+
+
+\begin{document}
+\setcounter{section}{-1}
+
+\title{Lecture notes on Fourier Decoupling}
+\author{Pavel Zorin-Kranich}
+\maketitle
+\begin{center}
+University of Bonn, summer term 2019
+\end{center}
+\tableofcontents
+
+\input{00-intro.tex}
+\input{01-mult-kakeya.tex}
+\input{02-mult-restriction.tex}
+\input{03-dec-paraboloid.tex}
+\input{04-local-smoothing.tex}
+\input{05-cone-square-fct.tex}
+\input{06-reverse-square-fct.tex}
+\input{07-max-schroedinger.tex}
+\input{08-brascamp-lieb.tex}
+\input{09-dec-moment-curve.tex}
+\appendix
+\input{10-weyl-sums.tex}
+\input{92-kakeya-2d.tex}
+\input{93-cordoba-square-fct.tex}
+
+\printbibliography[heading=bibintoc]
+\end{document}

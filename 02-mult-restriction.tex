@@ -1,0 +1,197 @@
+\section{Multlinear restriction}
+The abbreviation $A \lesssim B$ means $A \leq C B$ with some constant $C$ that typically does not depend on functions $f$, but does depend on dimension and Lebesgue exponents.
+Dependence on some specific parameters will be indicated by a subscript: $\lesssim_{\epsilon}$.
+\begin{theorem}[{\cite{MR2275834}}]\label{thm:mult-restriction}
+For every $n\in\N$, $\epsilon>0$, and compact $C^{2}$ hypersurfaces $A_{1}^{0},\dotsc,A_{n}^{0} \subset \R^{n}$ there exist $C_{1},C_{2}<\infty$ such that the following holds.
+
+Denote by $N_{j}(x)$ the unit normal vector to $A_{j}$ at $x$.
+Let $A_{j} \subset A_{j}^{0}$, $j=1,\dotsc,n$, be compact subsets and assume that for some $0 < \nu < 1$ and all $x_{j} \in A_{j}$ we have
+\[
+\abs{ N_{1}(x_{1}) \wedge \dotsb \wedge N_{n}(x_{n}) } > \nu.
+\]
+For $R>1$ denote by $A_{j}^{R}$ the $R^{-1}$-neighborhood of $A_{j}$.
+Then for any functions $f_{j}$ with $\supp \widehat{f_{j}} \subset A_{j}^{R}$ we have
+\begin{equation}\label{eq:mult-restriction}
+\norm[\Big]{\prod_{j=1}^{n} \sup_{z \in B(y,1)}\abs{f_{j}(z)}}_{L^{2/(n-1)}_{y}(B(0,R))}
+\leq C_{1} \nu^{-C_{2}}
+R^{-n/2+\epsilon} \prod_{j=1}^{n}\norm{f_{j}}_{2}.
+\end{equation}
+\end{theorem}
+The left-hand side of \eqref{eq:mult-restriction} is morally equal to
+\[
+\norm[\Big]{\prod_{j=1}^{n} \abs{f_{j}} }_{L^{2/(n-1)}(B(0,R))},
+\]
+since due to the compact Fourier support the functions $\abs{f_{j}}$ are constant at scale $1$.
+However, in some applications it is convenient to use the formally larger expression in \eqref{eq:mult-restriction}.
+
+If the surfaces $A_{j}$ were completely flat, then the Fourier supports $A_{j}^{R}$ would be contained in boxes of size $O(1) \times \dotsm \times O(1) \times O(R^{-1})$, so by the uncertainty principle the functions $f_{j}$ would be essentially constant on boxes of sizes $1 \times \dotsm \times 1 \times R$.
+The estimate \eqref{eq:mult-restriction} would then essentially follow from the Loomis--Whitney inequality applied to the functions $\abs{f_{j}}^{2}$.
+
+The $C^{2}$ hypothesis ensures that the surfaces do in fact look flat, but only at scale $R^{-1/2}$, in the sense that an $R^{-1/2}$-ball inside a $C^{2}$ surface fits into a box of dimensions $R^{-1/2} \times \dotsm \times R^{-1/2} \times R^{-1}$.
+We will have to use an induction on scales argument to take advantage of this.
+
+It is conjectured that $\nu$ should enter \eqref{eq:mult-restriction} with the same exponent as in the Loomis--Whitney inequality.
+This is currently only known for $n=2$ (where it is easy) and $n=3$, see \cite{MR3884636}.
+For one of our applications (maximal estimates for the Schr\"odinger equation) it will be important that the constant in \eqref{eq:mult-restriction} only grows with a power of $\nu$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:mult-restriction}]
+Let $\MlRs(R,\nu)$ be the smallest constant for which the estimate \eqref{eq:mult-restriction} holds.
+By translation invariance the same estimate holds for any ball of radius $R$, not necessarily centered at $0$.
+For functions $f_{j}$ with compact Fourier support we have the Bernstein inequality $\norm{f_{j}}_{\infty} \lesssim \norm{f_{j}}_{2}$, and it follows that
+\begin{equation}
+\label{eq:mult-restriction:trivial}
+\MlRs(R,\nu) \lesssim R^{C}.
+\end{equation}
+Here and later in this proof the implicit constants do not depend on $R,\nu$.
+We will use induction on scales to obtain a better bound.
+
+Let $\phi$ be a Schwartz function on $\R^{n}$ with compact Fourier support such that $\abs{\phi} \geq \one_{B(0,2)}$.
+For each $R\geq 1$ and $x\in\R^n$ let $\phi_{R^{1/2}}^{x}(y) := \phi(R^{-1/2}(y-x))$.
+Then $\supp \widehat{\phi_{R^{1/2}}^{x}} \subset B(0,CR^{-1/2})$, and it follows that $\supp \widehat{\phi_{R^{1/2}}^{x} f_{j}} \subset A_{j}^{C R^{1/2}}$.
+Hence
+\begin{align*}
+\norm[\Big]{\prod_{j=1}^{n} \sup_{z\in B(y,1)}\abs{f_{j}} }_{L^{2/(n-1)}_{y}(B(x,R^{1/2}))}
+&\leq
+\norm[\Big]{\prod_{j=1}^{n} \sup_{z\in B(y,1)} \abs{\phi_{R^{1/2}}^{x} f_{j}} }_{L^{2/(n-1)}_{y}(B(x,R^{1/2}))}\\
+&\leq
+\MlRs(R^{1/2},\nu)
+\prod_{j=1}^{n}\norm{\phi_{R^{1/2}}^{x} f_{j}}_{2}.
+\end{align*}
+Averaging this inequality over $x \in B(0,R)$ we obtain
+\begin{equation}\label{48}
+LHS\eqref{eq:mult-restriction}
+\lesssim
+\MlRs(R^{1/2},\nu)
+\Bigl( R^{-n/2} \int_{B(0,R)} \prod_{j=1}^{n}
+\norm{\phi_{R^{1/2}}^{x} f_{j}}_{2}^{2/(n-1)} \dif x \Bigr)^{(n-1)/2}.
+\end{equation}
+Now for each $1\leq j\leq n$ we split $A_{j} = \cup_{a} A_{j,a}$ into disks of radius $R^{-1/2}$ and make an orthogonal splitting $f_{j} = \sum_{a} f_{j,a}$ such that $\supp \widehat{f_{j,a}} \subset A_{j,a}^{R}$.
+Since $A_{j}$ is a $C^{2}$ surface, the set $A_{j,a}^{R}$ is contained in a box $U_{j,a}$ of size $O(R^{-1}) \times O(R^{-1/2}) \times \dotsb \times O(R^{-1/2})$ whose short side points in the normal direction $v_{j,a}$ at some (arbitrary) point on $A_{j,a}$.
+Also, for each $j$ the supports of the functions $\widehat{\phi_{R^{1/2}}^{x} f_{j,a}}$ have bounded overlap, and by almost orthogonality we obtain
+\begin{equation}\label{50}
+\eqref{48} \lesssim
+R^{\alpha/2+\epsilon}
+\Bigl( R^{-n/2} \int_{B(0,R)} \Bigl(\prod_{j=1}^{n} \sum_{a} \norm{\phi_{R^{1/2}}^{x} f_{j,a}}_{2}^{2} \Bigr)^{1/(n-1)} \dif x \Bigr)^{(n-1)/2}.
+\end{equation}
+Let
+\[
+F_{j,a}(x) := \norm{\phi_{R^{1/2}}^{x} f_{j,a}}_{2}^{2}.
+\]
+By the uncertainty principle we expect $F_{j,a}$ to be approximately constant on tubes of size $R\times R^{1/2}\times \cdots\times R^{1/2}$ whose long side points in the direction $v_{j,a}$.
+By the multilinear Kakeya inequality (Corollary~\ref{cor:mult-Kakeya:functions}) we estimate
+\begin{align*}
+\eqref{50}
+&=
+\MlRs(R^{1/2},\nu) \Bigl( R^{-n/2} \int_{B(0,R)} \Bigl(\prod_{j=1}^{n} \sum_{a} F_{j,a}(x) \Bigr)^{1/(n-1)} \dif x \Bigr)^{(n-1)/2}\\
+&\leq
+\MlRs(R^{1/2},\nu) C_{1}' \nu^{-C_{2}'} R^{\epsilon}
+\prod_{j=1}^{n} \Bigl( \sum_{a} \sum_{T \in \Tubes_{j,a}} \sup_{x \in T} F_{j,a}(x) \Bigr)^{1/2},
+\end{align*}
+where $\Tubes_{j,a} = \Tubes_{v_{j,a}}$ is as in Corollary~\ref{cor:mult-Kakeya:functions} with $(R,R^{1/2})$ in place of $(R,r)$.
+Here $C_{1}'$ and $C_{2}'$ depend on $\epsilon>0$.
+
+Now we make the uncertainty principle precise.
+Fix some Schwartz function with $\one_{B(0,1)} \leq \widehat{\psi} \leq \one_{B(0,2)}$.
+For each $j,a$ let $\psi_{j,a}$ be its dilation and modulation such that $\widehat{\psi_{j,a}}$ is adapted to $U_{j,a}$, so that $f_{j,a} = f_{j,a} * \psi_{j,a}$.
+Then in particular by H\"older's inequality
+\begin{multline*}
+\abs{f_{j,a}}(y)^{2}
+=
+\abs{f_{j,a} * \psi_{j,a}}(y)^{2}
+=
+\abs[\big]{\int f_{j,a}(y-z) \psi_{j,a}(z) \dif z}^{2}\\
+\leq
+\Bigl( \int \abs{f_{j,a}}(y-z)^{2} \abs{\psi_{j,a}}(z) \dif z \Bigr)
+\Bigl( \int \abs{\psi_{j,a}}(z) \dif z \Bigr)\\
+\lesssim
+\int \abs{f_{j,a}}(y-z)^{2} \abs{\psi_{j,a}}(z) \dif z
+=
+(\abs{f_{j,a}}^{2} * \abs{\psi_{j,a}})(x).
+\end{multline*}
+Therefore for every $x\in T \in \Tubes_{j,a}$ we have
+\begin{align*}
+F_{j,a}(x)
+&\lesssim
+\int \Bigl( \int \abs{f_{j,a}}(y-z)^{2} \abs{\psi_{j,a}}(z) \dif z \Bigr) \abs{\phi_{R^{1/2}}^{x}}^{2}(y) \dif y\\
+&=
+\iint \abs{f_{j,a}}^{2}(y) \abs{\psi_{j,a}}(z) \abs{\phi_{R^{1/2}}^{x}}^{2}(y+z) \dif z \dif y\\
+&\lesssim
+R^{-1/2} \int \abs{f_{j,a}}^{2}(y) \chi_{T}(y) \dif y,
+\end{align*}
+where $\chi_{T}$ is a smooth version of the characteristic function.
+Inserting this above we obtain
+\begin{align*}
+\eqref{50}
+&\lesssim
+\MlRs(R^{1/2},\nu) C_{1}' \nu^{-C_{2}'} R^{\epsilon}
+\Bigl( \sum_{a} \sum_{T \in \Tubes_{j,a}} R^{-1/2} \int \abs{f_{j,a}}^{2}(y) \chi_{T}(y) \dif y \Bigr)^{1/2}\\
+&\lesssim
+\MlRs(R^{1/2},\nu) C_{1}' \nu^{-C_{2}'} R^{\epsilon-n/4}
+\prod_{j=1}^{n} \Bigl( \sum_{a} \norm{ f_{j,a} }_{2}^{2} \Bigr)^{1/2}\\
+&=
+\MlRs(R^{1/2},\nu) C_{1}' \nu^{-C_{2}'} R^{\epsilon-n/4}
+\prod_{j=1}^{n} \norm{ f_{j} }_{2}.
+\end{align*}
+Taking a supremum over all possible $f_{j}$ we obtain
+\[
+\MlRs(R,\nu)
+\leq
+\MlRs(R^{1/2},\nu) C_{1}'' \nu^{-C_{2}'} R^{\epsilon-n/4}.
+\]
+Fix $\epsilon>0$.
+If $R^{\epsilon} < C_{1}'' \nu^{-C_{2}'}$ we use the trivial bound \eqref{eq:mult-restriction:trivial}.
+Otherwise we can estimate
+\[
+\MlRs(R,\nu)
+\leq
+\MlRs(R^{1/2},\nu) R^{2\epsilon-n/4}.
+\]
+Iterating this bound until we arrive at the trivial bound we will obtain
+\[
+\MlRs(R,\nu)
+\lesssim
+\nu^{-C} R^{4\epsilon-n/2}.
+\qedhere
+\]
+\end{proof}
+
+The multilinear restriction inequality is also frequently stated in the following form.
+\begin{corollary}
+In the setting of Theorem~\ref{thm:mult-restriction} let $\sigma_{j}$ denote the surface measure ($(n-1)$-dimensional Hausdorff measure) on $A_{j}$.
+Let also $f_{j} \in L^{2}(A_{j},\sigma_{j})$.
+Then for every $\epsilon>0$ and every $R>1$ we have
+\begin{equation}
+\label{eq:mult-restriction:surface}
+\norm[\Big]{\prod_{j=1}^{n} \sup_{z \in B(y,1)}\abs{\widehat{f_{j}\sigma_{j}}(z)}}_{L^{2/(n-1)}_{y}(B(0,R))}
+\lesssim_{\nu,\epsilon}
+R^{\epsilon} \prod_{j=1}^{n}\norm{f_{j}}_{L^{2}(\sigma_{j})}.
+\end{equation}
+\end{corollary}
+\begin{proof}
+Let $\phi_{R}(y) = \phi(y/R)$, where $\phi$ is a Schwartz function with $\abs{\phi} \geq \one_{B(0,2)}$ and $\supp \widehat{\phi} \subset B(0,1)$.
+Then
+\[
+LHS\eqref{eq:mult-restriction:surface}
+\leq
+\norm[\Big]{\prod_{j=1}^{n} \sup_{z \in B(y,1)}\abs{\phi_{R}\widehat{f_{j}\sigma_{j}}(z)}}_{L^{2/(n-1)}_{y}(B(0,R))}
+\lesssim
+R^{-n/2+\epsilon} \prod_{j=1}^{n}\norm{\phi_{R}\widehat{f_{j}\sigma_{j}}}_{2},
+\]
+since
+\[
+\supp \widehat{\phi_{R}\widehat{f_{j}\sigma_{j}}}
+\subset
+\supp \widehat{\phi_{R}} + \supp (f_{j}\sigma_{j})
+\subset
+A_{j}^{R}.
+\]
+Moreover,
+\[
+\norm{\phi_{R}\widehat{f_{j}\sigma_{j}}}_{2}
+=
+\norm{\widehat{\phi_{R}}*(f_{j}\sigma_{j})}_{L^{2}(\R^{n})}
+\lesssim
+R^{1/2} \norm{f_{j}}_{L^{2}(\sigma_{j})}.
+\]
+The latter inequality can be seen by subdividing $\R^{n}$ into cubes with side length $R^{-1}$.
+\end{proof}

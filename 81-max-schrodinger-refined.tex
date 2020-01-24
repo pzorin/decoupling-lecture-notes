@@ -1,0 +1,784 @@
+\documentclass[biblatex]{pzorin-note}
+\usepackage{booktabs}
+\input{macros.tex}
+
+%GENERAL
+\newcommand{\eit}{e^{i t \Delta}}
+\newcommand{\eir}{e^{i r \Delta}}
+\newcommand{\bbS}{\mathbb{S}}
+
+\newcommand{\RefStr}{\mathrm{RefStr}}
+\newcommand{\MultRefStr}{\mathrm{MultRefStr}}
+\newcommand{\FrStr}{\mathrm{FrStr}}
+
+\newcommand{\bB}{\mathfrak{B}} % ball Big
+\newcommand{\bM}{\mathfrak{M}} % ball Medium
+\newcommand{\bS}{\mathfrak{S}} % ball Smal
+\newcommand{\bBp}{\mathfrak{B}'} % ball Big previous scale
+\newcommand{\bMp}{\mathfrak{M}'} % ball Medium previous scale
+\newcommand{\bSp}{\mathfrak{S}'} % ball Small previous scale
+\newcommand{\bO}{\mathfrak{O}} % ball Out
+\newcommand{\bI}{\mathfrak{I}} % ball In
+\newcommand{\bOp}{\mathfrak{O}'} % ball Out previous scale
+\newcommand{\bIp}{\mathfrak{I}'} % ball In previous scale
+
+\begin{document}
+
+In this note we recover the main results of \cite{MR3842310} and \cite{arxiv:1805.02775} without any pigeonholing.
+Also, Proposition~\ref{prop:fractal-strichartz} is slightly more refined than \cite[Proposition 3.1]{arxiv:1805.02775} and combines the results for all dimensions $\alpha$ in one estimate.
+Some text is copied from the cited articles.
+
+
+\subsection*{Notation}
+We write $A\lesssim B$ if $A\leq CB$ for some absolute constant $C$, $A \sim B$ if $A\lesssim B$ and $B\lesssim A$; $A\ll B$ if $A$ is much less than $B$; $A\lessapprox B$ if $A\leq C_\epsilon R^\epsilon B$ for any $\epsilon>0, R>1$.
+Sometimes we also write $A\lesssim B$ if $A\leq C_\epsilon B$ for some constant $C_\epsilon$ depending on $\epsilon$ (when the dependence on $\epsilon$ is unimportant).
+
+By an $r$-ball (cube) we mean a ball (cube) of radius (side length) $r$.
+An $r\times\cdots\times r \times L$-tube (box) means a tube (box) with radius (short sides length) $r$ and length $L$.
+For a set $\calS$, $\#\calS$ denotes its cardinality.
+
+\section{Wave packet decomposition}
+We ignore all tails and pretend that functions are compactly suported in space and in frequency.
+Real wave packet decomposition can be found in \cite{MR3454378}.
+
+Let $f \in L^{2}(\R^{n})$ with $\supp \hat{f} \subset B^{n}(0,1)$.
+If $\tau \subset B^{n}(0,1)$ is a cube, then $f_{\tau}$ is defined by $\widehat{f_{\tau}} = \hat{f} \one_{\tau}$.
+Given $1 \leq K \leq R^{1/2}$, $\tau$ of side length $1/K$, and $B \subset \R^{n}$ ball of radius $R/K$ we define $f_{\tau,B}$ to be $f_{\tau}$ smoothly truncated to $B$, so that its Fourier support remains inside $2\tau$.
+Let $\bBp = \bBp_{\tau, B}$ be the tube of length $R$ and radius $R/K$ whose central line starts at $(c(B),0)$ and points in the direction $G(c(\tau))$.
+Here $c(\tau)$ is the center of $\tau$ and for $\xi \in B^{n}(0,1)$ we write $G(\xi):=\frac{(-2\xi,1)}{\abs{(-2\xi,1)}} \in \bbS^n$.
+There is a one-to-one correspondence between $\bBp$ and $(\tau, B)$, so we will also write $f_{\bBp} = f_{\tau,B}$.
+Then $\eit f_{\bBp}$ is essentially supported in $\bBp$ for $t\leq R$.
+Also,
+\begin{equation}
+\label{eq:orthogonality}
+\ell^{2}_{\bBp} \norm{f_{\bBp}}_{2}
+\lessapprox
+\norm{f}_{2}.
+\end{equation}
+
+
+\section{Linear refined Strichartz}
+\label{sec:LRS}
+In the following table we list the names that we use for regions of different sizes in $\R^{n+1}$.
+If two sizes are given, then the first one is the size in the space direction and the second in the time direction.
+Tubes (regions that are longer in the time direction than they are wide in the space direction) can also have different orientations.
+\begin{center}
+\begin{tabular}{ccc} \toprule
+  Object & Size before scaling & Size after scaling\\ \midrule
+  $\bB$ & $R$ & \\
+  Slab & $R \times R^{1/2}$ & \\
+  $\bM$ & $R^{1/2}$ & \\
+  $\bBp$ & $R^{3/4} \times R$ & $R^{1/2}$\\
+  $slab$ & $R^{3/4}$ & $R^{1/2} \times R^{1/4}$\\
+  $\bMp$ & $R^{1/2} \times R^{3/4}$ & $R^{1/4}$\\
+  \bottomrule
+\end{tabular}
+\end{center}
+The following possible inclusions will be relevant:
+\[
+\bB \supset Slab \supset \bM, \quad
+\bB \supset \bBp \supset slab \supset \bMp \supset \bM.
+\]
+If we write that a tube is contained in another tube we imply that also the directions match.
+
+\begin{theorem} [Linear refined Strichartz in dimension $n+1$] \label{thm-LRS}
+Let $p = \frac{2(n+2)}{n}$.
+Suppose that $f: \R^n \rightarrow \C$ has frequency supported in $B^n(0,1)$.
+Then
+\begin{equation}
+\label{LRS}
+\ell^{p}_{Slab \subset \bB} \ell^{2}_{\bM \subset Slab} \norm{ \eit f }_{L^{p}(\bM)}
+\lessapprox
+\norm{ f }_{L^2}.
+\end{equation}
+\end{theorem}
+\cite[Theorem 3.1]{MR3842310} can be recovered using the fact that $-\frac{1}{n+2} = 1/p - 1/2$.
+The nice thing about our version is that lots of dyadic pigeonholing is replaced by Minkowski's inequality.
+
+The proof uses the Bourgain-Demeter $\ell^2$ decoupling theorem, together with induction on the radius and parabolic rescaling.
+First we recall the decoupling result of Bourgain and Demeter.
+\begin{theorem}[{\cite{MR3374964}}]
+\label{bourdem}
+Let $n\geq 1$ and $p:=\frac{2(n+2)}{n}$.
+Suppose that the $R^{-1}$-neighborhood of the unit paraboloid in
+$\R^{n+1}$ is divided into $R^{n/2}$ disjoint rectangular boxes $\tau$, each with dimensions $R^{-1/2}\times\dotsm\times R^{-1/2} \times R^{-1}$.
+Suppose $\widehat F_\tau$ is supported in $\tau$ and $F = \sum_\tau F_\tau$.
+Then on each ball $B \subset \R^{n+1}$ of radius $\geq R$ we have
+\[
+\norm{ F }_{L^{p}(B)}
+\lessapprox
+\big( \sum_\tau \norm{ F_\tau }_{L^{p}(w_{B})}^2 \big)^{1/2}.
+\]
+\end{theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm-LRS}]
+For $R\geq 1$ let $\RefStr(R)$ denote the smallest constant such that the inequality
+\begin{equation} \label{LRS-const}
+\ell^{p}_{Slab} \ell^{2}_{\bM \subset Slab} \norm{ \eit f }_{L^{p}(\bM)}
+\leq
+\RefStr(R) \norm{ f }_{L^2}
+\end{equation}
+holds for that value of $R$.
+It is clear that $\RefStr(R) \lesssim R^{O(1)}$.
+It suffices to show that
+\begin{equation}\label{eq:RS-recursion}
+\RefStr(R) \lessapprox \RefStr(R^{1/2}).
+\end{equation}
+Applying this inequality $\log\log R$ times and using the trivial estimate at the end we will obtain $\RefStr(R) \lessapprox 1$.
+
+We make a wave packet decomposition $f = \sum_{\bBp} f_{\bBp}$ at scale $K=R^{1/4}$.
+For each cap $\tau$ and each $\bM$ there is approximately one $\bBp$ with direction $\tau$ that intersects $\bM$.
+Hence the decoupling theorem tells us that
+\begin{equation}
+\norm{ e^{i t \Delta} f }_{L^{p}(\bM)}
+\lessapprox
+\ell^{2}_{\bBp \supset \bM} \norm{ \eit f_{\bBp} }_{L^{p}(\bM)}.
+\end{equation}
+Substituting this on the left-hand side of \eqref{LRS} we obtain
+\[
+LHS\eqref{LRS}
+\lessapprox
+\ell^{p}_{Slab} \ell^{2}_{\bM \subset Slab} \ell^{2}_{\bBp} \one_{\bM \subset \bBp} \norm{ \eit f_{\bBp} }_{L^{p}(\bM)}.
+\]
+By Minkowski's inequality this is
+\[
+\leq
+\ell^{2}_{\bBp} \ell^{p}_{Slab} \ell^{2}_{\bM \subset Slab} \one_{\bM \subset \bBp} \norm{ \eit f_{\bBp} }_{L^{p}(\bM)}.
+\]
+By orthogonality \eqref{eq:orthogonality}, for a fixed $\bBp$ it suffices to show
+\[
+\ell^{p}_{Slab} \ell^{2}_{\bM \subset Slab} \one_{\bM \subset \bBp} \norm{ \eit f_{\bBp} }_{L^{p}(\bM)}
+\lessapprox
+\RefStr(R^{1/2}) \norm{f_{\bBp}}_{2}.
+\]
+Now we partition $\bBp$ into slabs denoted by $slab$ (with a small $s$) and each $slab$ into tubes denoted by $\bMp$.
+Then since the long side of $\bBp$ is not very close to being horizontal, each $Slab$ intersects only boundedly many $slab \subset \bBp$, and for every choice of $Slab$ and $\bMp$ there are only boundedly many $\bM \subset Slab \cap \bMp$.
+Hence
+\begin{multline*}
+\ell^{p}_{Slab} \ell^{2}_{\bM \subset Slab} \one_{\bM \subset \bBp} \norm{ \eit f_{\bBp} }_{L^{p}(\bM)}\\
+=
+\ell^{p}_{Slab} \ell^{2}_{slab} \ell^{2}_{\bM \subset Slab \cap slab} \one_{\bM \subset \bBp} \norm{ \eit f_{\bBp} }_{L^{p}(\bM)}\\
+\lesssim
+\ell^{p}_{slab} \ell^{p}_{Slab} \ell^{2}_{\bM \subset Slab \cap slab} \one_{\bM \subset \bBp} \norm{ \eit f_{\bBp} }_{L^{p}(\bM)}\\
+=
+\ell^{p}_{slab} \ell^{p}_{Slab} \ell^{2}_{\bMp \subset slab} \ell^{2}_{\bM \subset Slab \cap \bMp} \one_{\bM \subset \bBp} \norm{ \eit f_{\bBp} }_{L^{p}(\bM)}\\
+\leq
+\ell^{p}_{slab} \ell^{2}_{\bMp \subset slab} \ell^{p}_{Slab} \ell^{2}_{\bM \subset Slab \cap \bMp} \one_{\bM \subset \bBp} \norm{ \eit f_{\bBp} }_{L^{p}(\bM)}\\
+\lesssim
+\ell^{p}_{slab} \ell^{2}_{\bMp \subset slab} \ell^{p}_{Slab} \ell^{p}_{\bM \subset Slab \cap \bMp} \one_{\bM \subset \bBp} \norm{ \eit f_{\bBp} }_{L^{p}(\bM)}\\
+\lesssim
+\ell^{p}_{slab} \ell^{2}_{\bMp \subset slab} \ell^{p}_{\bM \subset \bMp} \one_{\bM \subset \bBp} \norm{ \eit f_{\bBp} }_{L^{p}(\bM)}\\
+\lesssim
+\ell^{p}_{slab} \ell^{2}_{\bMp \subset slab} \norm{ \eit f_{\bBp} }_{L^{p}(\bMp)}.
+\end{multline*}
+The right-hand side is analogous to the left-hand side of \eqref{LRS}.
+By parabolic rescaling the right-hand side can be estimated by
+\[
+\RefStr(R^{1/2}) \norm{f_{\bBp}}_{2}.
+\]
+This closes the induction on radius and completes the proof.
+\end{proof}
+
+\section{Mixed norm multilinear Kakeya}
+By scaling the inequality
+\[
+\int \prod_{j=0}^{n} f_{j}(x_{0},\dotsc,x_{n})
+\lesssim
+\prod_{j=0}^{n} \norm{ \norm{f_{j}}_{L^{p}_{x_{j}}} }_{L^{q}_{x_{(j)}}}
+\]
+can only hold if $q=np'$.
+The usual Loomis--Whitney inequality is the case $p=\infty$.
+The case $p=q=n+1$ is just H\"older's inequality.
+The intermediate cases follow by interpolation.
+
+We need a similar mixed norm version of the Bennett--Carbery--Tao multilinear Kakeya inequality which we now recall.
+
+\begin{theorem}[{\cite{MR2275834}}] \label{MK}
+Let $S_j \subset \bbS^{m-1}$, $j=1,\dotsc,k$, be $\nu$-transverse in the sense that for any vectors $v_j\in S_j$ we have
+\[
+\abs{v_1\wedge \dotsb \wedge v_k} \geq \nu.
+\]
+Suppose that $l_{j,a}$ are lines in $\R^m$ and that the direction of $l_{j,a}$ lies in $S_j$.
+Let $T_{j,a}$ be the characteristic function of the $1$-neighborhood of $l_{j,a}$.
+Let $Q_s$ denote a cube of side length $S \geq 1$.
+Then for any $\epsilon>0$ we have
+\[
+\int_{Q_s} \prod_{j=1}^{k} \big(\sum_{a=1}^{N_j} T_{j,a}\big)^{1/(k-1)} \leq C_\epsilon {\rm Poly}(\nu^{-1}) S^{\epsilon} \prod_{j=1}^{k} N_j^{1/(k-1)}\,.
+\]
+\end{theorem}
+
+\begin{corollary}\label{cor:mixed-norm-mult-Kakeya}
+If in the situation of Theorem~\ref{MK} we have $n \leq r/\gamma \leq n+1$ and $r/\gamma = n(p/\gamma)'$, then for any sequences $c_{j,a,Q}$ with $1$-boxes $Q$ we obtain
+\[
+\ell^{\gamma}_{Q} \prod_{j=0}^{n} \ell^{r}_{a} \one_{Q \subset T_{j,a}} c_{j,a,Q}
+\lessapprox
+\prod_{j=0}^{n} \ell^{r}_{a} \ell^{p}_{Q \subset T_{j,a}} c_{j,a,Q}
+\]
+\end{corollary}
+\begin{proof}
+Without loss of generality $\gamma=1$.
+The case $r=n$, $p=\infty$ is Theorem~\ref{MK}.
+The case $r=p=n+1$ is H\"older's inequality.
+To obtain the general case we dualize with $\ell^{\infty}_{Q}\ell^{r'}_{a}$ sequences and use complex interpolation.
+\end{proof}
+The scaling condition can be reformulated as
+\begin{equation}
+\label{eq:mixed-norm-mult-Kakeya:scaling}
+r/\gamma = n(p/\gamma)'
+\iff
+\frac{n}{r} + \frac{1}{p} = \frac{1}{\gamma}.
+\end{equation}
+
+\section{Multilinear refined Strichartz estimate}\label{sec:kRS}
+
+\begin{theorem} [$n+1$-linear refined Strichartz in dimension $n+1$] \label{thm-kRS}
+Let $p:=\frac{2(n+2)}{n}$.
+Let $f_j: \R^n \rightarrow \C$, $j=0,\dotsc,n$, with $G(\supp \widehat{f_{j}})$ being $\nu$-transverse.
+Then
+\begin{equation} \label{kRS}
+\Bigl( \sum_{\bM \subset \bB} \prod_{j=0}^{n} \norm{ \eit f_{j} }_{L^{p}(\bM)}^{\frac{1}{n+1} \cdot \beta} \Bigr)^{1/\beta}
+\lessapprox \nu^{-C}
+\prod_{j=0}^{n} \norm{f_{j}}_{2}^{1/(n+1)}
+\end{equation}
+with $\beta = p \frac{n+1}{n+3} = 2 \frac{(n+2)(n+1)}{(n+3)n}$.
+\end{theorem}
+
+\cite[Theorem 4.2]{MR3842310} can be again recovered since $\frac{1}{\beta} = \frac{1}{p} + \frac{n}{(n+1)(n+2)}$.
+Here $\beta$ arises from
+\[
+\frac{n+1}{\beta} = \frac{1}{\gamma} = \frac{n}{2} + \frac{1}{p}.
+\]
+
+\begin{proof}[Proof of Theorem~\ref{thm-kRS}]
+We begin by writing
+\[
+LHS\eqref{kRS}^{n+1}
+=
+\ell^{\gamma}_{\bM} \prod_{j=0}^{n} \norm{ \eit f_{j} }_{L^{p}(\bM)}
+\sim
+\ell^{\gamma}_{slab} \ell^{\gamma}_{\bM\subset slab} \prod_{j=0}^{n} \norm{ \eit f_{j} }_{L^{p}(\bM)}
+\]
+with $\gamma = \beta/(n+1) = \frac{p}{n+3} = \frac{2(n+2)}{n(n+3)}$.
+Now we temporarily fix $slab$.
+Denote by $\bBp_{j}$ the set of $\bBp$ whose direction is in $G(\supp \widehat{f_{j}})$.
+By decoupling
+\begin{multline*}
+\ell^{\gamma}_{\bM\subset slab} \prod_{j=0}^{n} \norm{ \eit f_{j} }_{L^{p}(\bM)}
+\lessapprox
+\ell^{\gamma}_{\bM \subset slab} \prod_{j=0}^{n} \ell^{2}_{\bBp \in \bBp_{j} : \bM \subset \bBp} \norm{ \eit f_{\bBp} }_{L^{p}(\bM)}\\
+\sim
+\ell^{\gamma}_{\bM \subset slab} \prod_{j=0}^{n} \ell^{2}_{\bBp \in \bBp_{j}, \bMp \subset \bBp \cap slab : \bM \subset \bMp} \norm{ \eit f_{\bBp} }_{L^{p}(\bM)}
+\end{multline*}
+Since $n < 2/\gamma = \frac{n(n+3)}{n+2} < n+1$ and \eqref{eq:mixed-norm-mult-Kakeya:scaling} holds, by Corollary~\ref{cor:mixed-norm-mult-Kakeya} with tubes $\bMp$ and boxes $\bM$ this is
+\[
+\lessapprox
+\prod_{j=0}^{n} \ell^{2}_{\bBp \in \bBp_{j}, \bMp \subset \bBp \cap slab} \ell^{p}_{\bM \subset \bMp} \norm{\eit f_{\bBp}}_{L^{p}(\bM)}
+=
+\prod_{j=0}^{n} \ell^{2}_{\bBp \in \bBp_{j}, \bMp \subset \bBp \cap slab} \norm{\eit f_{\bBp}}_{L^{p}(\bMp)}
+\]
+and
+\[
+LHS\eqref{kRS}^{n+1}
+\lessapprox
+\ell^{\gamma}_{slab}
+\prod_{j=0}^{n} \ell^{2}_{\bBp \in \bBp_{j}} \ell^{2}_{\bMp \subset \bBp \cap slab} \norm{\eit f_{\bBp}}_{L^{p}(\bMp)}
+\]
+By Corollary~\ref{cor:mixed-norm-mult-Kakeya} with tubes $\bBp$ and boxes $slab$ this is
+\[
+\lessapprox
+\prod_{j=0}^{n} \ell^{2}_{\bBp \in \bBp_{j}} \ell^{p}_{slab} \ell^{2}_{\bMp \subset \bBp \cap slab} \norm{\eit f_{\bBp}}_{L^{p}(\bMp)}
+\]
+By Theorem~\ref{thm-LRS} and rescaling this is
+\[
+\lessapprox
+\prod_{j=0}^{n} \ell^{2}_{\bBp \in \bBp_{j}} \norm{f_{\bBp}}_{2}
+\]
+By orthogonality \eqref{eq:orthogonality}, this is
+\[
+\lessapprox
+\prod_{j=0}^{n} \norm{f_{j}}_{2}.
+\]
+\end{proof}
+
+
+\section{Fractal Strichartz}
+\label{sec-pf}
+Somewhat confusingly, we change $p$ to $q$ and use $p$ for a different exponent.
+
+We use boxes and tubes of the following dimensions.
+\begin{center}
+\begin{tabular}{cccc} \toprule
+  Name & Symbol & Size before scaling & Size after scaling\\ \midrule
+  Big & $\bB$ & $R$ & \\
+  Medium & $\bM$ & $R^{1/2}$ & \\
+  Small & $\bS$ & $K^{2}$ & \\
+  Big at previous scale & $\bBp$ & $R/K \times R$ & $R/K^{2} = R_{1}$\\
+  Medium at previous scale & $\bMp$ & $R^{1/2} \times R^{1/2}K$ & $R^{1/2}/K = R_{1}^{1/2}$\\
+  Small at previous scale & $\bSp$ & $KK_{1}^{2} \times K^{2}K_{1}^{2}$ & $K_{1}^{2}$\\ \midrule
+  Outer & $\bO$ & $R/r \times R$ & \\
+  Inner & $\bI$ & $K^{2} r^{1-4\delta} \times K^{2} r^{2-4\delta}$ & \\
+  Outer at previous scale& $\bOp$ & $R/(Kr) \times R$ & $R/(K^{2}r) \times R/K^{2}$\\
+  Inner at previous scale & $\bIp$ & $K K_{1}^{2} r^{1-4\delta} \times K^{2} K_{1}^{2} r^{2-4\delta}$ & $K_{1}^{2} r^{1-4\delta} \times K_{1}^{2} r^{2-4\delta}$\\
+  \bottomrule
+\end{tabular}
+\end{center}
+The following possible inclusions will be relevant: $\bB \supset \bBp \supset \bMp \supset \bM \supset \bSp \supset \bS$ (for the latter inclusion it is important that $\delta \leq 1/4$).
+
+\begin{proposition} \label{prop:fractal-strichartz}
+Let $n\geq 1$.
+Let $p=\frac{2(n+1)}{n-1}$ ($p=\infty$ when $n=1$).
+Define $s$ and $\kappa$ by $\frac{1}{2} - \frac{1}{s} = \frac{n}{(n+1)(n+2)} = n \kappa$.
+
+Fix $\delta \in (0,1/4)$.
+For $R\geq 1$ let $\FrStr(R)$ denote the smallest constant such that the following holds with $K=R^{\delta}$.
+
+For every non-negative weight function $(w_{\bS})$ and every function $f$ with $\supp \widehat{f}\subset B^n(0,1)$ we have
+\begin{equation}\label{eq-main}
+\ell^{2}_{\bM \subset \bB} \ell^{s}_{\bS \subset \bM} w_{\bS} \norm{ \eit f }_{L^{p}(\bS)}
+\leq
+\FrStr(R) W \norm{f}_2.
+\end{equation}
+with
+\[
+W := \sup_{1 \leq r \leq R^{1/2}} r^{-2\kappa} \sup_{\bO} \Bigl( \sum_{\bI \subset \bO} \bigl( \sum_{\bS \subset \bI} w_{\bS}^{1/(2\kappa)} \bigr)^{2}  \Bigr)^{\kappa}.
+\]
+Then
+\[
+\FrStr(R) \lessapprox K^{C} + \FrStr(R/K^{2}).
+\]
+\end{proposition}
+\begin{corollary} \label{cor:fractal-strichartz}
+For every $\epsilon>0$ there exists (sufficiently small) $\delta \in (0,1/4)$ such that
+\[
+\FrStr(R) \lesssim R^{\epsilon}.
+\]
+\end{corollary}
+\begin{remark}
+Note that if
+\begin{equation}\label{ga}
+\gamma:=
+\max_{x'\in \R^{n+1},r\geq K^2} r^{-\alpha} \sum_{\bS \subset B(x',r)} w_{\bS}^{1/(2\kappa)}
+\end{equation}
+then for a fixed $1 \leq r \leq R^{1/2}$ we have
+\begin{multline*}
+r^{-2} \sup_{\bO} \sum_{\bI \subset \bO} \bigl( \sum_{\bS \subset \bI} w_{\bS}^{1/(2\kappa)} \bigr)^{2}
+\leq
+r^{-2} \sup_{\bO} \sum_{\bI \subset \bO} \bigl( \sum_{\substack{B \subset \bI\\ \text{ball of radius } K^{2}r^{1-4\delta}}} \sum_{\bS \subset B} w_{\bS}^{1/(2\kappa)} \bigr)^{2}\\
+\lesssim
+r^{-1} \sup_{\bO} \sum_{\bI \subset \bO} \sum_{\substack{B \subset \bI\\ \text{ball of radius } K^{2}r^{1-4\delta}}} \bigl( \sum_{\bS \subset B} w_{\bS}^{1/(2\kappa)} \bigr)^{2}\\
+\lesssim
+r^{-1} \sup_{\bO} \sum_{\substack{B \subset \bO\\ \text{ball of radius } K^{2}r^{1-4\delta}}} \bigl( \sum_{\bS \subset B} w_{\bS}^{1/(2\kappa)} \bigr)^{2}\\
+\lesssim
+\sup_{B_{0} \text{ ball of radius } R/r} \sum_{\substack{B \subset B_{0}\\ \text{ball of radius } K^{2}r^{1-4\delta}}} \bigl( \sum_{\bS \subset B} w_{\bS}^{1/(2\kappa)} \bigr)^{2}\\
+\lesssim
+\sup_{B_{0}} \sum_{B \subset B_{0}} \bigl( \sum_{\bS \subset B} w_{\bS}^{1/(2\kappa)} \bigr)
+\cdot \sup_{B \subset B_{0}} \bigl( \sum_{\bS \subset B} w_{\bS}^{1/(2\kappa)} \bigr)\\
+\leq
+\bigl( \sup_{B_{0}} \sum_{\bS \subset B_{0}} w_{\bS}^{1/(2\kappa)} \bigr)
+\cdot \bigl( \sup_{B} \sum_{\bS \subset B} w_{\bS}^{1/(2\kappa)} \bigr)\\
+\lessapprox
+\gamma (R/r)^{\alpha} \gamma r^{\alpha}
+=
+\gamma^{2} R^{\alpha},
+\end{multline*}
+and taking supremum on the left-hand side we obtain
+\[
+W \lesssim (\gamma^{2} R^{\alpha})^{\frac{1}{(n+1)(n+2)}}.
+\]
+Hence Proposition~\ref{prop:fractal-strichartz} implies \cite[Proposition 3.1]{arxiv:1805.02775}.
+\end{remark}
+
+\begin{remark}
+In the case $w_{\bS} = 1$ for all $\bS \subset \bB$ Proposition~\ref{prop:fractal-strichartz} is weaker than Theorem~\ref{thm-LRS}.
+Indeed, in this case
+\[
+W \sim R^{1/(n+2)},
+\]
+\[
+\ell^{2}_{\bM}
+\leq R^{\frac{1}{2} (\frac{1}{2}-\frac{1}{\tilde{p}})} \ell^{\tilde{p}}_{Slab} \ell^{2}_{\bM \subset Slab},
+\]
+\[
+\ell^{s}_{\bS \subset \bM} \leq
+R^{\frac{n+1}{2} (\frac{1}{s}-\frac{1}{\tilde{p}})} \ell^{\tilde{p}}_{\bS \subset \bM},
+\]
+where $\tilde{p} = \frac{2(n+2)}{n}$, and
+\[
+\frac{1}{2} (\frac{1}{2}-\frac{1}{\tilde{p}})
+=
+\frac{n+1}{2} (\frac{1}{s}-\frac{1}{\tilde{p}})
+=
+\frac{1}{2(n+2)}.
+\]
+\end{remark}
+
+\subsection{Preliminaries}
+
+In the frequency space we decompose $B^n(0,1)$ into disjoint $K^{-1}$-cubes $\tau$.
+Denote the set of $K^{-1}$-cubes $\tau$ by $\calS$.
+For function $f$ with $\supp \widehat{f}\subset B^n(0,1)$ we have $f=\sum_\tau f_\tau$, where $\widehat{f_\tau}$ is $\widehat{f}$ restricted to $\tau$.
+Given a $K^2$-cube $\bS$, we define its \textbf{significant} set
+\[
+\calS(\bS):=\Set[\Big]{\tau \in \calS \given \norm{\eit f_\tau}_{L^p(\bS)} \geq \frac{1}{100(\#\calS)}\norm{\eit f}_{L^p(\bS)} }\,.
+\]
+Note that
+\[
+\norm[\big]{\sum_{\tau\in \calS(B)}\eit f_\tau}_{L^p(\bS)} \sim \norm{\eit f}_{L^p(\bS)}\,.
+\]
+We say a $K^2$-cube $\bS$ is \textbf{narrow} if there is an $n$-dimensional subspace $V$ such that for all $\tau \in \calS(\bS)$
+\[
+{\rm Angle}(G(\tau),V) \leq \frac{1}{100nK}\,,
+\]
+where $G(\tau)\subset \bbS^n$ is a spherical cap of radius $\sim K^{-1}$ and ${\rm Angle}(G(\tau),V)$ denotes the smallest angle between any non-zero vector $v\in V$ and $v'\in G(\tau)$.
+Otherwise we say the $K^2$-cube $\bS$ is \textbf{broad}.
+It follows from this definition that for any broad $\bS$, there exist $\tau_1,\cdots \tau_{n+1} \in \calS(\bS)$ such that for any $v_j \in G(\tau_j)$
+\begin{equation} \label{eq-trans}
+\abs{v_1 \wedge v_2\wedge \cdots \wedge v_{n+1}} \gtrsim K^{-n}\,.
+\end{equation}
+
+\subsection{Broad case} \label{sec-br}
+Let $\beta = 2 \frac{(n+2)(n+1)}{(n+3)n}$, $q = \frac{2(n+2)}{n}$, $s$.
+We record a few relations between exponents $2 < \beta < s < q < p$:
+\begin{multline*}
+\frac{1}{s} - \frac{1}{q} = \frac{1}{q} - \frac{1}{p} = \frac{1}{2} - \frac{1}{\beta} = \frac{1}{(n+1)(n+2)},
+\quad
+\frac{1}{\beta} - \frac{1}{p} = \frac{1}{2} - \frac{1}{q} = \frac{1}{n+2},\\
+\frac{1}{\beta} - \frac{1}{q} = \frac{1}{2} - \frac{1}{s} = \frac{n}{(n+1)(n+2)},
+\quad
+\frac{1}{2} - \frac{1}{p} = \frac{1}{n+1}.
+\end{multline*}
+
+We begin by estimating the contribution of broad cubes.
+By H\"older's inequality we estimate
+\begin{multline*}
+\ell^{2}_{\bM} \ell^{s}_{\bS \subset \bM} w_{\bS} \norm{ \eit f }_{L^{p}(\bS)}
+\leq
+\ell^{2}_{\bM} (\ell^{1/\kappa}_{\bS \subset \bM} w_{\bS}) \ell^{q}_{\bS \subset \bM} \norm{\eit f}_{L^p(\bS)}\\
+\leq
+(\ell^{1/\kappa}_{\bM} \ell^{1/\kappa}_{\bS \subset \bM} w_{\bS})
+\ell^{\beta}_{\bM} \ell^{q}_{\bS \subset \bM} \norm{\eit f}_{L^p(\bS)}\\
+\lessapprox
+W
+\ell^{\beta}_{\bM} \ell^{q}_{\bS \subset \bM} \norm{\eit f}_{L^p(\bS)},
+\end{multline*}
+where we used definition of $W$ with $r=1$.
+Denote the collection of $(n+1)$-tuple of transverse caps by $\Gamma$:
+\[
+\Gamma:=\Set[\Big]{ \tilde\tau=(\tau_1,\cdots,\tau_{n+1}) \given \tau_j\in \calS\text{ and } \eqref{eq-trans} \text{ holds for any } v_j\in G(\tau_j) }\,.
+\]
+Then $\abs{\Gamma} \lesssim K^{O(1)}$.
+For some $f_{j} = f_{\tau_{j}}$ with $(\tau_1,\cdots,\tau_{n+1})\in \Gamma$ we have
+\[
+\norm{ \eit f }_{L^{p}(\bS)}
+\lesssim
+K^{O(1)} \prod_{j=1}^{n+1} \norm{ \eit f_{j} }_{L^{p}(\bS)}^{1/(n+1)}
+\lesssim
+K^{O(1)} \prod_{j=1}^{n+1} \norm{ \eit f_{j} }_{L^{q}(\bS)}^{1/(n+1)},
+\]
+where we used Bernstein's inequality.
+By multilinear refined Strichartz we have
+\begin{multline*}
+\ell^{\beta}_{\bM} \ell^{q}_{\bS \subset \bM} \norm{ \eit f }_{L^{p}(\bS)}
+\lesssim
+K^{O(1)}
+\ell^{\beta}_{\bM} \ell^{q}_{\bS \subset \bM} \prod_{j=1}^{n+1} \norm{ \eit f_{j} }_{L^{q}(\bS)}^{1/(n+1)}\\
+\lesssim
+K^{O(1)}
+\ell^{\beta}_{\bM} \prod_{j=1}^{n+1} \bigl( \ell^{q}_{\bS \subset \bM} \norm{ \eit f_{j} }_{L^{q}(\bS)} \bigr)^{1/(n+1)}\\
+\leq
+K^{O(1)}
+\ell^{\beta}_{\bM} \prod_{j=1}^{n+1} \norm{ \eit f_{j} }_{L^{q}(\bM)}^{1/(n+1)}\\
+\lessapprox
+\norm{f}_{2}.
+\end{multline*}
+So the broad case is done.
+
+\subsection{Narrow case} \label{sec-nr}
+
+For each narrow ball, we have the following lemma which is a consequence of $\ell^2$ decoupling theorem in dimension $n$ and Minkowski's inequality.
+This argument is essentially contained in Bourgain-Demeter's proof of the $\ell^2$ decoupling conjecture and we omit the details (see the proof of \cite[Proposition 5.5]{MR3374964}).
+
+\begin{lemma}\label{lem-nr-dec}
+Suppose that $\bS$ is a narrow $K^2$-cube in $\R^{n+1}$.
+Then for any $\epsilon>0$,
+\[
+\norm{\eit f}_{L^p(\bS)} \leq C_\epsilon K^{\epsilon} \left(\sum_{\tau\in \calS}\norm{\eit f_\tau}_{L^p(\omega_\bS)}^2\right)^{1/2} \,,
+\]
+here $p=\frac{2(n+1)}{n-1}$, $\calS$ denotes the set of $K^{-1}$-cubes which tile $B^n(0,1)$, and $\omega_\bS$ is a weight function which is essentially a characteristic function on $\bS$.
+\end{lemma}
+
+For each $\tau \in \calS$, we will deal with $\eit f_\tau$ by parabolic rescaling and induction on radius.
+In order to do so, we need to further decompose $f$ in physical space and perform dyadic pigeonholing several times to get the right picture for our inductive hypothesis at scale $R_1:=R/K^2$ after rescaling.
+
+We do the wave packet decomposition $f = \sum_{\bBp} f_{\bBp}$ with parameter $K$.
+For a fixed $\tau$, the different boxes $\bBp_{\tau, B}$ tile $\bB$.
+In particular, for each $\tau$, a given $K^2$-cube $\bS$ lies in exactly one box $\bBp_{\tau, D}$.
+We write $f=\sum_{\bBp} f_{\bBp}$ for abbreviation.
+By Lemma~\ref{lem-nr-dec} and ignoring tails, the narrow contribution is
+\begin{multline} \label{eq-dec}
+\ell^{2}_{\bM} \ell^{s}_{\bS \subset \bM} w_{\bS} \norm{ \eit f }_{L^{p}(\bS)}
+\lessapprox
+\ell^{2}_{\bM} \ell^{s}_{\bS \subset \bM} \ell^{2}_{\bBp \supset \bM} w_{\bS} \norm{ \eit f_{\bBp} }_{L^{p}(\bS)}\\
+\lessapprox
+\ell^{2}_{\bBp} \ell^{2}_{\bM \subset \bBp} \ell^{s}_{\bS \subset \bM} w_{\bS} \norm{ \eit f_{\bBp} }_{L^{p}(\bS)}.
+\end{multline}
+
+Fixing $\bBp$ we obtain
+\begin{multline}
+\label{eq:fixed-Box-norm}
+\ell^{2}_{\bM \subset \bBp} \ell^{s}_{\bS \subset \bM} w_{\bS} \norm{ \eit f_{\bBp} }_{L^{p}(\bS)}
+\lesssim
+\ell^{2}_{\bMp \subset \bBp} K^{1/2-1/s} \ell^{s}_{\bM \subset \bMp} \ell^{s}_{\bSp \subset \bM} w_{\bSp} \ell^{p}_{\bS \subset \bSp} \norm{ \eit f_{\bBp} }_{L^{p}(\bS)}\\
+\lesssim
+K^{1/2 - 1/s} \ell^{2}_{\bMp \subset \bBp} \ell^{s}_{\bSp \subset \bMp} w_{\bSp} \norm{ \eit f_{\bBp} }_{L^{p}(\bSp)},
+\end{multline}
+where
+\[
+w_{\bSp} := \ell^{1/(2\kappa)}_{\bS \subset \bSp} w_{\bS}
+\]
+
+Now we use parabolic rescaling to turn the box $\bBp$ into an $R_{1}$-cube.
+For each $1/K$-cube $\tau=\tau_{\bBp}$ in $B^n(0,1)$, we write $\xi=\xi_0+K^{-1} \zeta \in \tau$, where $\xi_0$ is the center of $\tau$, then
+\[
+\abs{\eit f_{\bBp} (x)} =K^{-n/2} \abs{e^{i\tilde t \Delta} g (\tilde x)}
+\]
+for some function $g$ with Fourier support in the unit cube and $\norm{g}_2=\norm{f_{\bBp}}_2$, where the new coordinates $(\tilde x,\tilde t)$ are related to the old coordinates $(x,t)$ by
+\begin{equation} \label{coord}
+\begin{cases}
+\tilde x =K^{-1} x + 2 t K^{-1} \xi_0\,, \\
+\tilde t = K^{-2} t \,.
+\end{cases}
+\end{equation}
+For simplicity, denote the above relation by $(\tilde x,\tilde t)=F(x,t)$.
+Therefore
+\begin{equation} \label{Ybox-Ytilde}
+\norm{\eit f_{\bBp} (x)}_{L^p(\bSp)}
+=
+K^{\frac{n+2}{p}-\frac{n}{2}} \norm{e^{i\tilde t \Delta} g(\tilde x)}_{L^p(\tilde \bSp)}
+=
+K^{-\frac{1}{n+1}} \norm{e^{i\tilde t \Delta} g(\tilde x)}_{L^p(\tilde \bSp)},
+\end{equation}
+where $\tilde \bSp$ is the image of $\bSp$ under the new coordinates.
+
+Note that we can apply our inductive hypothesis \eqref{eq-main} at scale $R_1=R/K^2$ to $\norm{e^{i\tilde t \Delta} g(\tilde x)}_{L^p(\tilde Y)}$ with new weights $w_{\bSp}$.
+This gives
+\[
+\eqref{eq:fixed-Box-norm}
+\lessapprox
+\underbrace{K^{1/2-1/s} K^{-\frac{1}{n+1}} W_{1}}_{(*)}
+\norm{f_{\bBp}}_{2}.
+\]
+Since $\ell^{2}_{\bBp} \norm{f_{\bBp}}_{2} \lessapprox \norm{f}_{2}$, it remains to observe
+\begin{equation}
+\label{eq:big-const}
+(*)
+=
+K^{-2\kappa} W_{1}
+\lesssim
+W.
+\end{equation}
+Indeed, every $r$ in the definition of $W_{1}$ corresponds to $Kr$ in the definition of $W$.
+
+This finishes the estimate in the narrow case and completes the proof of Proposition~\ref{prop:fractal-strichartz}.
+
+\begin{remark}
+Essentially the same argument shows that
+\begin{equation}\label{eq:fractal-strichartz:alpha=1}
+\ell^{\beta}_{\bM} \ell^{q}_{\bS \subset \bM} w_{\bS} \norm{ \eit f }_{L^{p}(\bS)}
+\lessapprox
+\sup_{K^{2} \leq r \leq R^{1/2}} \sup_{\bI} \bigl( r^{-2} \sum_{\bS \subset \bI} w_{\bS}^{1/\kappa} \bigr)^{\kappa}
+\norm{f}_{2},
+\end{equation}
+which also implies \cite[Proposition 3.1]{arxiv:1805.02775} when $\alpha=1$ (and is in fact a stronger estimate).
+It would be interesting to combine this with Proposition~\ref{prop:fractal-strichartz}.
+\end{remark}
+
+\section{Maximal Strichartz}
+\label{sec:implications-of-fractal-strichartz}
+First we forget the medium scale in Corollary~\ref{cor:fractal-strichartz}.
+By H\"older's inequality we have
+\[
+\ell^{2}_{\bS \subset \bM} w_{\bS} \norm{\eit f}_{L^{p}(\bS)}
+\leq
+\bigl( \sum_{\bS \subset \bM} w_{\bS}^{1/(1/2-1/s)} \bigr)^{\frac{1}{2}-\frac{1}{s}} \cdot
+\ell^{s}_{\bS \subset \bM} w_{\bS} \norm{\eit f}_{L^{p}(\bS)}
+\]
+With
+\[
+\lambda := \sup_{\bM} \sum_{\bS \subset \bM} w_{\bS}^{1/(1/2-1/s)}
+\]
+we obtain
+\[
+\ell^{2}_{\bS \subset \bB} w_{\bS} \norm{ \eit f }_{L^{p}(\bS)}
+=
+\ell^{2}_{\bM \subset \bB} \ell^{2}_{\bS \subset \bM} w_{\bS} \norm{ \eit f }_{L^{p}(\bS)}
+\lessapprox
+\lambda^{n \kappa} W \norm{f}_2.
+\]
+This recovers \cite[Theorem 1.5]{arxiv:1805.02775}.
+If $w$ is a characteristic function, then $\lambda \leq W^{1/(2\kappa)}$, so this implies
+\[
+\ell^{2}_{\bS \subset \bB} w_{\bS} \norm{ \eit f }_{L^{p}(\bS)}
+\lessapprox
+W^{n/2+1} \norm{f}_2.
+\]
+This recovers \cite[Corollary 1.6]{arxiv:1805.02775}.
+
+In particular we also recover \cite[Theorem 2.2]{arxiv:1805.02775} which in turn improves \cite[Theorem 1.7]{MR3842310}: if $\mu$ is an $\alpha$-dimensional measure and $f$ has Fourier support in the unit ball, then
+\[
+\norm{\sup_{0 < t < R} \abs{\eit f}}_{L^{2}(B(0,R),\dif\mu)}
+\lessapprox
+R^{\frac{\alpha}{2(n+1)}} \norm{f}_{2}.
+\]
+The most optimistic conjecture for $\alpha=n$ would be
+\[
+\norm{\sup_{0 < t < R} \abs{\eit f}}_{L^{2(n+1)/n}(B(0,R))}
+\lessapprox
+\norm{f}_{2},
+\]
+which would imply the sharp $L^{2}$ estimate by H\"older's inequality.
+This is known for $n=1$ \cite{MR1101221} and $n=2$ \cite{MR3702674}.
+However, this conjecture is false for $n \geq 3$ by \cite{arxiv:1902.01430}.
+
+On the other hand, if $\mu$ is an $\alpha$-dimensional measure with $\frac{3n+1}{4} \leq \alpha \leq n$, then \cite{MR3574661} \cite{arxiv:1703.01360} show that pointwise convergence of solutions fails for $s < \frac{n + (n-1)(n-\alpha)}{2(n+1)}$.
+I do not trust \cite{MR3574661} because the union in (2.7) of that paper is not disjoint, so the lower bound for $\abs{\Omega}$ does not seem to hold.
+
+\cite{MR2264734}: reduction of $H^{s}$ estimates to local estimates.
+
+\section{Using multilinear restriction}
+\begin{theorem}[{Multilinear restriction \cite{MR2275834}}] \label{thm:mult-restr}
+In the setting of Theorem~\ref{thm-kRS} we have
+\begin{equation} \label{kRS2}
+\ell^{2(n+1)/n}_{\bS \subset \bB} \prod_{j=0}^{n} \norm{ \eit f_{j} }_{L^{2(n+1)/n}(\bS)}^{1/(n+1)}
+\lessapprox \nu^{-C}
+\prod_{j=0}^{n} \norm{f_{j}}_{2}^{1/(n+1)}.
+\end{equation}
+\end{theorem}
+
+\begin{proposition} \label{prop:fractal-strichartz2}
+Let $2 \leq t \leq 2(n+1)/n$, $p_{\mathrm{mr},n}=2(n+1)/n$, $p_{\mathrm{dec},n-1}=2(n+1)/(n-1)$,
+\[
+\frac{1}{t_{1}} = \frac{1}{t} - \frac{1}{p_{\mathrm{mr},n}}, \quad
+\frac{1}{t_{2}} = \frac{1}{t} - \frac{1}{p_{\mathrm{dec},n-1}}, \quad
+\frac{1}{t_{3}} = \frac{n+2}{p_{\mathrm{dec},n-1}} - \frac{n}{2}.
+\]
+In the setting of Proposition~\ref{prop:fractal-strichartz} let now $\FrStr(R)$ denote the smallest constant such that the following holds with $K=R^{\delta}$.
+
+For every non-negative weight function $(w_{\bS})$ and every function $f$ with $\supp \widehat{f}\subset B^n(0,1)$ we have
+\begin{equation}\label{eq-main2}
+\ell^{t}_{\bS \subset \bB} w_{\bS} \norm{ \eit f }_{L^{p}(\bS)}
+\leq
+\FrStr(R) W \norm{f}_2.
+\end{equation}
+with
+\[
+W := \sup_{1 \leq r \leq R^{1/2}} r^{1/t_{3}} \sup_{\bO} \ell^{t_{1}}_{\bI \subset \bO} \ell^{t_{2}}_{\bS \subset \bI} w_{\bS}.
+\]
+Then
+\[
+\FrStr(R) \lessapprox K^{C} + \FrStr(R/K^{2}).
+\]
+\end{proposition}
+\begin{proof}
+In the broad case
+\[
+\norm{ \eit f }_{L^{p}(\bS)}
+\lesssim
+K^{O(1)} \prod_{j=1}^{n+1} \norm{ \eit f_{j} }_{L^{p}(\bS)}^{1/(n+1)}
+\lesssim
+K^{O(1)} \prod_{j=1}^{n+1} \norm{ \eit f_{j} }_{L^{2(n+1)/n}(\bS)}^{1/(n+1)},
+\]
+so
+\begin{multline*}
+\ell^{t}_{\bS \subset \bB} w_{\bS} \norm{ \eit f }_{L^{p}(\bS)}
+\lesssim
+K^{O(1)} \ell^{t}_{\bS \subset \bB} w_{\bS} \prod_{j=1}^{n+1} \norm{ \eit f_{j} }_{L^{2(n+1)/n}(\bS)}^{1/(n+1)}\\
+\leq
+K^{O(1)} \ell^{t_{1}}_{\bS \subset \bB} w_{\bS} \cdot \ell^{2(n+1)/n} \prod_{j=1}^{n+1} \norm{ \eit f_{j} }_{L^{2(n+1)/n}(\bS)}^{1/(n+1)}\\
+\lessapprox
+\ell^{t_{1}}_{\bS \subset \bB} w_{\bS} \cdot \prod_{j=0}^{n} \norm{f_{j}}_{2}^{1/(n+1)}\\
+\leq
+\ell^{t_{1}}_{\bS \subset \bB} w_{\bS} \cdot \norm{f}_{2}.
+\end{multline*}
+In the narrow case by decoupling
+\begin{multline}
+\ell^{t}_{\bS \subset \bB} w_{\bS} \norm{ \eit f }_{L^{p}(\bS)}
+\lessapprox
+\ell^{t}_{\bS \subset \bB} \ell^{2}_{\bBp \supset \bS} w_{\bS} \norm{ \eit f_{\bBp} }_{L^{p}(\bS)}\\
+\lessapprox
+\ell^{2}_{\bBp} \ell^{t}_{\bS \subset \bBp} w_{\bS} \norm{ \eit f_{\bBp} }_{L^{p}(\bS)}.
+\end{multline}
+Fixing $\bBp$ we obtain
+\begin{multline} \label{eq:fixed-Box-norm2}
+\ell^{t}_{\bS \subset \bBp} w_{\bS} \norm{ \eit f_{\bBp} }_{L^{p}(\bS)}
+\lesssim
+\ell^{t}_{\bSp \subset \bBp} \ell^{t}_{\bS \subset \bSp} w_{\bS} \norm{ \eit f_{\bBp} }_{L^{p}(\bS)}\\
+\leq
+\ell^{t}_{\bSp \subset \bBp} \ell^{t_{2}}_{\bS \subset \bSp} w_{\bS} \cdot \ell^{p}_{\bS \subset \bSp} \norm{ \eit f_{\bBp} }_{L^{p}(\bS)}\\
+\lesssim
+\ell^{t}_{\bSp \subset \bBp} w_{\bSp} \cdot \norm{ \eit f_{\bBp} }_{L^{p}(\bSp)},
+\end{multline}
+where
+\[
+w_{\bSp} := \ell^{t_{2}}_{\bS \subset \bSp} w_{\bS}.
+\]
+Parabolic rescaling gives
+\[
+\eqref{eq:fixed-Box-norm2}
+\lessapprox
+\underbrace{K^{-1/(n+1)} W_{1}}_{(*)}
+\norm{f_{\bBp}}_{2},
+\]
+where $W_{1}$ is computed using the new weights $w_{\bSp}$.
+Since $\ell^{2}_{\bBp} \norm{f_{\bBp}}_{2} \lessapprox \norm{f}_{2}$, it remains to observe
+\begin{equation}
+\label{eq:big-const2}
+(*)
+=
+K^{-1/(n+1)} W_{1}
+\lesssim
+W.
+\end{equation}
+Indeed, every $r$ in the definition of $W_{1}$ corresponds to $Kr$ in the definition of $W$.
+
+This finishes the estimate in the narrow case and completes the proof of Proposition~\ref{prop:fractal-strichartz2}.
+\end{proof}
+
+Note that $t_{2} < t_{1}$, and it follows that
+\begin{multline*}
+W
+=
+\sup_{1 \leq r \leq R^{1/2}} r^{-1/(n+1)} \sup_{\bO} \Bigl( \sum_{\bI \subset \bO} \bigl( \sum_{\bS \subset \bI} w_{\bS}^{t_{2}} \bigr)^{t_{1}/t_{2}}  \Bigr)^{1/t_{1}}\\
+\leq
+\sup_{1 \leq r \leq R^{1/2}} r^{-1/(n+1)} \sup_{\bO} \Bigl( \sum_{\bI \subset \bO} \bigl( \sum_{\bS \subset \bI} w_{\bS}^{t_{2}} \bigr) \cdot \sup_{\bI \subset \bO} \bigl( \sum_{\bS \subset \bI} w_{\bS}^{t_{2}} \bigr)^{t_{1}/t_{2}-1}  \Bigr)^{1/t_{1}}\\
+\leq
+\sup_{1 \leq r \leq R^{1/2}} r^{-1/(n+1)} \sup_{\bO} \Bigl( \sum_{\bS \subset \bO} w_{\bS}^{t_{2}} \Bigr)^{1/t_{1}} \cdot \sup_{\bI \subset \bO} \bigl( \sum_{\bS \subset \bI} w_{\bS}^{t_{2}} \bigr)^{1/t_{2}-1/t_{1}}
+\end{multline*}
+If $w$ is the characteristic function of an $\alpha$-dimensional collection, then this is
+\begin{multline*}
+\lessapprox
+\sup_{1 \leq r \leq R^{1/2}} r^{1/t_{3}} \Bigl( r (R/r)^{\alpha} \Bigr)^{1/t_{1}} \cdot \bigl( r r^{\alpha} \bigr)^{1/t_{2}-1/t_{1}}\\
+=
+R^{\alpha/t_{1}} \sup_{1 \leq r \leq R^{1/2}} r^{1/t_{2}+1/t_{3}} r^{\alpha(1/t_{2}-2/t_{1})}
+=
+R^{\alpha/t_{1}} \sup_{1 \leq r \leq R^{1/2}} r^{1/t-1/2} r^{\alpha(1/2-1/t)}\\
+=
+R^{\alpha/t_{1}} \sup_{1 \leq r \leq R^{1/2}} r^{(\alpha-1)(1/2-1/t)}
+=
+R^{\alpha/t_{1}} R^{(\alpha-1)(1/2-1/t)/2},
+\end{multline*}
+assuming $\alpha \geq 1$.
+For the $\ell^{2}_{\bS \subset \bB}$ norm this gives the estimate
+\[
+W \ell^{t_{3}}_{\bS \subset \bB} w_{\bS},
+\]
+where $1/t_{3} = 1/2 - 1/t$.
+This is
+\begin{multline*}
+\leq
+R^{\alpha/t_{1}} R^{(\alpha-1)(1/2-1/t)/2} R^{\alpha/t_{3}}
+=
+R^{\alpha/(2(n+1))} R^{(\alpha-1)(1/2-1/t)/2}.
+\end{multline*}
+In particular, for $n=\alpha=1$ we recover the $L^{4}$ Schr\"odinger maximal estimate with $t=4$.
+\end{document}

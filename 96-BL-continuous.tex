@@ -1,0 +1,154 @@
+\documentclass[biblatex]{pzorin-note}
+\input{macros.tex}
+
+\begin{document}
+
+\subsection{Continuity of BL constants}
+Need extremizers, simple proof \cite{MR2661170} not enough.
+
+In this section we present the argument from \cite{MR3723636} that shows that the gaussian BL constant \eqref{BLfunctional} is continuous in the tuple of linear maps.
+An earlier and weaker result that would also suffice for our purposes was proved in \cite{MR3783217}.
+For \emph{simple} BL data a more precise result is available, namely that the BL constant is differentiable \cite{MR2836590}.
+A more precise result for not necessarily simple BL data was proved in \cite{arxiv:1811.11052}, namely that the BL constant is locally H\"older.
+
+We parameterize positive definite matrices by a rotation matrix and a diagonal matrix of their (positive) eigenvalues.
+To shorten double sums of the form $\sum_{j=1}^m \sum_{i = 1}^{n_j}$ we define
+\[
+\calK := \Set{ (j,i) \given 1 \leq j \leq m, 1 \leq i \leq n_{j} }.
+\]
+For $(i,j) \in \calK$ let $p_{(j,i)} := p_{j}$.
+We write $\calI$ for the set of all subsets $I$ of $\calK$ of cardinality $n$.
+For each $I\in\calI$ define
+\[
+p_I := \prod_{k\in I} p_k,
+\quad
+\lambda_I := \prod_{k\in I} \lambda_k
+\]
+for any family $(\lambda_{k})_{k\in\calK} \subset (0,\infty)$.
+\begin{lemma}
+\label{thm:BL-lambda-R}
+For suitable nonnegative nonnegative continuous functions $d_{I}$, $I\in\calI$, we have
+\begin{equation}
+\label{eq:BL-lambda-R}
+\BL_{\bfg}(\bfB,\bfp)^{2} = \sup \Set*{
+\frac{\prod_{k\in\calK} \lambda_k^{p_k} }{ \sum_{I\in \calI}  \lambda_I p_I d_I(\bfB,\bfR) } \given \lambda_k \in (0,\infty), R_i \in \mathrm{SO}(n_i)
+},
+\end{equation}
+where we denote by $\bfR$ the $m$-tuple $(R_i)_{i=1}^m$.
+\end{lemma}
+\begin{proof}
+Recall from \eqref{gauss},
+\[
+\BL_{\bfg}(\bfB,\bfp)^{2}
+=
+\sup_{A_{1},\dotsc,A_{m}} \;\frac{\prod_{j=1}^m(\det A_j)^{p_j}}{\det\left(\sum_{j=1}^m p_jL_{j}^*A_jL_{j}\right)}.
+\]
+Here $A_j$ is a positive definite $n_j \times n_j$ matrix.
+We fix an orthonormal basis $\Set{ \vec{e}_{j,i} \given i = 1, \dots, n_j }$ for each $H_{j} = \R^{n_j}$ and parameterize $A_j = R_j^* D_j R_j$, where $R_j \in \mathrm{SO}(n_i)$ is a rotation matrix and $D_j = \sum_{i=1}^{n_j} \lambda_{j,i} \vec{e}_{j,i} ({\vec{e}_{j,i}})^*$ is a diagonal matrix with positive diagonal entries $\lambda_{j,1}, \dotsc, \lambda_{j,n_j}$.
+Using the notation introduced above,
+\[
+\prod_{j=1}^m (\det A_j)^{p_j}
+=
+\prod_{k\in\calK} \lambda_k^{p_k}.
+\]
+On the other hand,
+\begin{align*}
+\sum_{j=1}^m p_jL_{j}^*A_jL_{j}
+& =
+\sum_{j=1}^m p_jL_{j}^*R_j^*\left(  \sum_{i=1}^{n_j} \lambda_{j,i} \vec{e}_{j,i}(\vec{e}_{j,i})^* \right)   R_jL_{j}
+\\ & =
+\sum_{(j,i) \in \calK} p_j \lambda_{j,i} L_{j}^* R_j^* \vec{e}_{j,i} \left(L_{j}^* R_j^* \vec{e}_{j,i} \right)^*
+\\ & =
+\sum_{k \in \calK} p_k \lambda_k v_k  v_k^*
+=: T
+\end{align*}
+with $v_{j,i} := L_{j}^* R_j^* \vec{e}_{j,i}$
+We compute $\det(T)$ using the Cauchy--Binet formula.
+Define the $n \times \abs{\calK}$ matrices
+\[
+A = (\lambda_k  p_k v_k)_{k \in \calK},
+\quad
+B = (v_{k})_{k \in \calK}.
+\]
+For $I \in \calI$ define $n \times n$ matrices
+\[
+A_{I} = (\lambda_k  p_k v_k)_{k \in I},
+\quad
+B_{I} = (v_{k})_{k \in I}.
+\]
+Then
+\[
+\det(T)=\det(AB^{*})
+= \sum_{I\in \calI} \det (A_I B_I^{*})
+= \sum_{I\in \calI} \det(B_{I}) \left( \prod_{k \in I} \lambda_k  p_k \right) \det (B_I^{*})
+= \sum_{I\in \calI}  \lambda_I p_I d_I
+\]
+with
+\[
+d_I
+=
+d_{I}(\bfB,\bfR)
+:=
+\det (B_I)^{2}
+=
+\det((v_k)_{k\in I})^2.
+\qedhere
+\]
+\end{proof}
+
+\begin{lemma}
+\label{lem:BL-Barthe-fct-cont}
+The function $F : [0,\infty)^{\calI} \to [0,+\infty]$ given by
+\begin{equation}
+\label{eq:BL-Barthe-formula}
+F(\bfd)
+:=
+\sup_{\lambda_k>0} \frac{ \prod_{k\in\calK} \lambda_k^{p_k}  }{ \sum_{I \in \calI} d_I p_I \lambda_I }
+\end{equation}
+is continuous.
+\end{lemma}
+
+\begin{proof}
+First, \eqref{eq:BL-Barthe-formula} is lower semicontinuous as a supremum of lower semicontinuous functions.
+It remains to prove upper semicontinuity. 
+
+Fix a point $\widetilde{\bfd}\in\R^N$.
+Suppose that $\bfd\in\R^N$ is such that
+\[
+\abs{d_{I}-\widetilde{d}_{I}} \leq \delta \abs{\widetilde{d}_{I}}
+\text{ for those } I \text{ for which } \widetilde{d}_{I} \neq 0
+\]
+for some $\delta>0$.
+Then
+\begin{align*}
+F(\bfd)
+&=
+\sup_{\lambda_k>0} \frac{ \prod_{k\in\calK} \lambda_k^{p_k} }{ \sum_{\mathcal{I}} d_I p_I\lambda_I}
+\\ &\leq
+\sup_{\lambda_k>0} \frac{ \prod_{k\in\calK} \lambda_k^{p_k} }{ \sum_{\mathcal{I}} \widetilde{d}_I(1-\delta) p_I\lambda_I},
+\\ &=
+F(\tilde{\bfd}) ( 1-\delta )^{-1}.
+\end{align*}
+This proves the required upper semicontinuity.
+\end{proof}
+
+\begin{theorem}
+\label{thm:gauss-BL-continuous}
+For each $\bfp$,  the map $\bfB \mapsto \BL_{\bfg}(\bfB,\bfp)$ is a continuous function with values in $[0,+\infty]$.
+\end{theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm:gauss-BL-continuous}]
+By Lemma~\ref{thm:BL-lambda-R} we have
+\[
+\BL_{\bfg}(\bfB,\bfp)^{2} = \sup \Set*{
+F(\bfd(\bfB,\bfR)) \given  R_i \in \mathrm{SO}(n_i) },
+\]
+where $F$ is defined by \eqref{eq:BL-Barthe-formula}.
+By Lemma~\ref{lem:BL-Barthe-fct-cont} and construction of $\bfd$ the function $(\bfB,\bfR) \mapsto F(\bfd(\bfB,\bfR))$ is continuous, hence locally uniformly continuous.
+Since the supremum is taken over a compact set, it is also continuous.
+\end{proof}
+
+\end{document}
+
+
+

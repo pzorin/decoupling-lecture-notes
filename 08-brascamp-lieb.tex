@@ -1,0 +1,532 @@
+\section{Brascamp--Lieb inequalities}
+We call a finite-dimensional real Hilbert space $H$ with the Lebesgue measure a \emph{Euclidean space}.
+For an integer $m \geq 0$ an \emph{$m$-transformation} is a triple
+\[
+\bfB := (H, (H_j)_{1 \leq j \leq m}, (B_j)_{1 \leq j \leq m})
+\]
+where $H, H_1,\dotsc,H_m$ are Euclidean spaces and for each $j$, $B_j: H \to H_j$ is a linear transformation.
+We only consider $m$-transformations that are \emph{non-degenerate} in the sense that all $B_j$ are surjective, $\dim H_{j} \neq 0$, and $\bigcap_{j=1}^m \ker(B_j) = \Set{0}$.
+An \emph{$m$-exponent} is an $m$-tuple $\p = (p_j)_{1 \leq j \leq m} \in (0,\infty)^m$ of non-negative real numbers (one can allow zero entries, but this leads to some case distinctions and is not needed in our application).
+A \emph{Brascamp--Lieb (BL) datum} is a pair $(\bfB,\p)$, where $\bfB$ is an
+$m$-transformation and $\p$ is an $m$-exponent for some integer $m \geq 0$.
+For a BL datum $(\bfB,\p)$ and an $m$-tuple ${\bf{f}} = (f_j)_{1 \leq j \leq m}$ of nonnegative measurable functions $f_j: H_j \to [0,\infty)$ such that $0 < \int_{H_j} f_j < \infty$ we define
+\[
+\BL(\bfB,\p; \f) :=
+\frac{\int_H \prod_{j=1}^m (f_j \circ B_j)^{p_j}}{\prod_{j=1}^m (\int_{H_j} f_j)^{p_j}}.
+\]
+The \emph{Brascamp--Lieb constant} is the defined as
+\[
+\BL( \bfB, \p ) :=
+\sup_{\f} \BL(\bfB,\p;\f).
+\]
+Equivalently, $\BL(\bfB,\p)$ is the smallest constant for which the $m$-linear \emph{Brascamp--Lieb inequality}
+\begin{equation}\label{BL}
+\int_{H} \prod_{j=1}^m (f_j \circ B_j)^{p_j}
+\leq \BL( \bfB, \p ) \prod_{j=1}^m (\int_{H_j} f_j)^{p_j}
+\end{equation}
+holds for nonnegative measurable functions $f_j: H_j \to [0,\infty)$.
+
+\begin{example}
+The following inequalities are examples of BL inequalities.
+We refer to the introduction of \cite{MR2377493} for a discussion of these examples.
+\begin{enumerate}
+\item H\"older's inequality: $B_{j}=\id_{H}$ for all $j$,
+\item Loomis--Whitney inequality: $H=\R^{m}$, $B_{j}(x_{1},\dotsc,x_{m})=(x_{1},\dotsc,x_{j-1},x_{j},\dotsc,x_{m})$,
+\item Young's convolution inequality: $H=\R^{2}$, $m=3$, $B_{1}(x,y)=x$, $B_{2}(x,y)=y$, $B_{3}(x,y)=x+y$.
+\end{enumerate}
+\end{example}
+
+A central role in the theory of BL inequalities is played by gaussian inputs.
+A \emph{gaussian input} is an $m$-tuple $\bfA = (A_{j})_{j=1}^{m}$ of (strictly) positive definite operators $A_{j} : H_{j} \to H_{j}$.
+Let $\bff_{\bfA} = (f_{j})_{j}$ with $f_{j}(x) = \exp( -\pi \<A_{j}x,x\> )$ the associated gaussian functions.
+Then we can compute
+\begin{equation}\label{BLfunctional(not)}
+\BLg( \bfB,\p; \A)
+:=
+\BL( \bfB,\p; \bff_{\A})
+=
+\left( \frac{\prod_{j=1}^m (\det_{H_j}
+A_j)^{p_j}} {\det_H (\sum_{j=1}^m p_j B_j^* A_j B_j)}
+\right)^{1/2}.
+\end{equation}
+We define the \emph{gaussian BL constant} by
+\begin{equation}\label{BLfunctional}
+\BLg( \bfB,\p) :=
+\sup \{ \BLg(\bfB,\p;\A): \A \text{ is a gaussian input for } (\bfB,\p)\}.
+\end{equation}
+Clearly, $\BLg(\bfB,\p) \leq \BL(\bfB,\p)$.
+Surprisingly, in fact equality holds.
+\begin{theorem}[{\cite{MR1069246}}]
+\label{thm:lieb}
+For any BL datum $(\bfB,\p)$, we have
+\[
+\BL( \bfB, \p ) = \BLg( \bfB, \p ).
+\]
+\end{theorem}
+In the special case of Young's convolution inequality Theorem~\ref{thm:lieb} goes back to \cite{MR0385456} for special $\p$.
+In the \emph{rank one} case ($\dim H_{j}=1$ for all $j$) Theorem~\ref{thm:lieb} for general $\p$ was proved in \cite{MR0412366} using rearrangement inequalities in \cite{MR0346109}.
+The proof given by Lieb in \cite{MR1069246} has the advantage that it also applies to complex phases, and covers e.g.\ the Fourier transform.
+An alternative proof using transportation of mass was given by Barthe \cite{MR1650312}.
+Another alternative approach using heat flow was given by Carlen, Lieb, and Loss \cite{MR2077162} in the rank one case and by Bennett, Carbery, Christ, and Tao in \cite{MR2377493}.
+
+We follow the latter approach \cite{MR2377493}.
+We will only need and prove Theorem~\ref{thm:lieb} for a special class of BL data called \emph{gaussian extremizable}.
+
+The finiteness of gaussian BL constants is not easy to verify directly.
+A necessary and sufficient combinatorial condition was found by Bennett, Carbery, Christ, and Tao.
+\begin{theorem}[{\cite{MR2377493}}]
+\label{thm:BCCT-g}
+Let $(\bfB, \p)$ be a BL datum.
+Then $\BLg(\bfB,\p) < \infty$ if and only if we have the scaling condition
+\begin{equation}\label{scaling}
+\dim(H) = \sum_j p_j \dim(H_j)
+\end{equation}
+and the dimension condition
+\begin{equation}\label{dimension}
+\dim(V) \leq \sum_{j=1}^m p_j \dim(B_j V) \text{ for every subspace } V \subseteq H.
+\end{equation}
+\end{theorem}
+We will call \eqref{dimension} the \emph{BCCT condition}.
+\begin{remark}
+The conditions \eqref{scaling} and \eqref{dimension} imply in particular that $\bfB$ is non-degenerate, as can be seen by testing on $V:=H$ and on $V:=\bigcap_{j=1}^m \ker(B_j)$.
+\end{remark}
+In the rank one case an equivalent characterization was given in \cite{MR1650312}.
+
+We will only prove Theorem~\ref{thm:BCCT-g} for \emph{simple} data.
+\begin{definition}
+A BL datum $(\bfB,\p)$ is called \emph{simple} if the scaling condition \eqref{scaling} holds and the BCCT condition \eqref{dimension} holds with strict inequality for all subspaces $V\subset H$ with $0 < \dim V < \dim H$.
+\end{definition}
+
+\subsection{Geometric case}\label{geom-sec}
+
+\begin{definition}[Geometric Brascamp--Lieb data] A Brascamp--Lieb datum $(\bfB,\p)$ is said to be \emph{geometric}
+if we have
+\begin{equation}
+\label{eq:BB*=id}
+B_j B_j^* = \id_{H_j}
+\text{ for every } j \text{ and}
+\end{equation}
+\begin{equation}\label{pbb}
+\sum_{j=1}^m p_j B_j^* B_j = \id_H.
+\end{equation}
+\end{definition}
+
+\begin{example}
+H\"older's and Loomis--Whitney inequalities are geometric BL.
+\end{example}
+
+\begin{remark}\label{blg-remark}
+Taking traces of the hypothesis \eqref{pbb} we obtain \eqref{scaling}.
+One can also verify that \eqref{dimension} holds in this case by multiplying \eqref{pbb} by the orthogonal projection onto $V$ and taking traces.
+\end{remark}
+
+For geometric data we will prove the BL inequality using a heat flow.
+
+\begin{proposition}[{\cite{MR1008726,MR1650312}}]
+\label{gbl-prop}
+Let $(\bfB,\p)$ be a geometric Brascamp--Lieb datum.
+Then
+\begin{equation}\label{lieb-geom}
+\BL(\bfB,\p) = \BLg(\bfB,\p) = 1.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Considering the gaussian input $\bfA=(\id_{H_{j}})_{j}$ we see that
+\[
+1 = \BLg(\bfB,\p;\bfA) \leq \BLg(\bfB,\p).
+\]
+By~\ref{BL} it therefore suffices to show that for any non-negative measurable functions $f_j: H_j \to [0,\infty)$ we have
+\begin{equation}\label{fjpj}
+\int_H \prod_{j=1}^m (f_j \circ B_j)^{p_j}
+\leq
+\prod_{j=1}^m (\int_{H_j} f_j)^{p_j}.
+\end{equation}
+By Fatou's lemma we may assume that the $f_j$ are smooth and compactly supported.
+Now let $u_j: \R^+ \times H \to \R^+$ be the solution to the heat equation
+\begin{align}
+\label{eq:def-u}
+\partial_t u_j(t,x) &= \Delta_H u_j(t,x) \\
+\label{eq:initial-u}
+u_j(0,x) &= f_j \circ B_j(x)
+\end{align}
+where $\Delta_H := \div \nabla$ is the usual Laplacian on $H$.
+More explicitly, we have
+\begin{equation}\label{uj-form}
+\begin{split}
+u_j(t,x)
+&= \frac{1}{(4\pi t)^{\dim(H)/2}} \int_H e^{-\norm{ x-y }_H^2/4t} f_j(B_j y)\ dy
+\\ &=
+\frac{1}{(4\pi t)^{\dim(H_j)/2}} \int_{H_j} e^{-\norm{ B_j x - z }_{H_j}^2/4t} f_j(z)\ dz.
+\end{split}
+\end{equation}
+Let
+\[ Q(t) := \int_{H} \prod_{j=1}^m u_j^{p_j}(t,x)\ dx.\]
+It suffices to show the following three inequalities:
+\begin{equation}
+\label{eq:Q0}
+\int_{H} \prod_{j=1}^m (f_j \circ B_j)^{p_j}
+\leq
+\limsup_{t \to 0^+} Q(t),
+\end{equation}
+\begin{equation}
+\label{eq:Q0<Qinf}
+\limsup_{t \to 0^+} Q(t)
+\leq
+\liminf_{t \to \infty} Q(t),
+\quad \text{and}
+\end{equation}
+\begin{equation}
+\label{qinf}
+\liminf_{t \to \infty} Q(t)
+\leq
+\prod_{j=1}^m \left(\int_{H_j} f_j\right)^{p_j}.
+\end{equation}
+The inequality \eqref{eq:Q0} follows from Fatou's lemma.
+
+Let
+\begin{equation}
+\label{eq:def-v}
+\vec v_j := - \frac{\nabla u_j}{u_j},
+\quad
+\vec v := \sum_{j=1}^m p_j \vec v_j
+\end{equation}
+We claim that for every $0<t<\infty$ we have the pointwise inequality
+\begin{equation}
+\label{eq:1}
+\partial_t \bigl( \prod_{j=1}^m u_j^{p_j} \bigr)
+\geq
+- \div \bigl( \vec v \prod_{j=1}^m u_j^{p_j} \bigr).
+\end{equation}
+Assuming \eqref{eq:1} we obtain
+\[
+\partial_{t} Q(t)
+\geq
+- \int_{H} \div( \vec v \prod_{j=1}^m u_j^{p_j} )
+=
+0.
+\]
+The latter equality follows from Gauss's theorem since $\vec v \prod_{j=1}^m u_j^{p_j}$ is rapidly decreasing in space.
+Indeed, $\vec v$ grows at most polynomially in space and each $u_{j}$ is rapdily decreasing in the direction of $(\ker B_{j})^{\perp}$.
+Since $\bfB$ is non-degenerate, the weighted product of $u_{j}$'s is rapidly decreasing in all directions.
+Thus we have reduced \eqref{eq:Q0<Qinf} to \eqref{eq:1}.
+
+Now we show \eqref{eq:1}.
+Expanding derivatives on both sides \eqref{eq:1} becomes
+\[
+\bigl( \prod_{j=1}^m u_j^{p_j} \bigr) \bigl( \sum_{j=1}^{m} \frac{p_{j} \partial_{t} u_{j}}{u_{j}} \bigr)
+\geq
+- ( \div \vec v ) \bigl( \prod_{j=1}^m u_j^{p_j} \bigr) - \< \vec v , \bigl( \prod_{j=1}^m u_j^{p_j} \bigr) \bigl( \sum_{j=1}^{m} \frac{p_{j} \nabla u_{j}}{u_{j}} \bigr) \>.
+\]
+Canceling the product of $u_{j}^{p_{j}}$ that is strictly positive for all $t>0$ we see that this is equivalent to
+\[
+\sum_{j=1}^{m} \frac{p_{j} \partial_{t} u_{j}}{u_{j}}
+\geq
+- ( \div \vec v ) - \< \vec v , \sum_{j=1}^{m} \frac{p_{j} \nabla u_{j}}{u_{j}} \>.
+\]
+Inserting the definition \eqref{eq:def-v} we calculate
+\[
+\div \vec v = - \sum_{j} p_{j} \frac{\Delta u_{j}}{u_{j}} + \sum_{j} p_{j} \frac{\<\nabla u_{j},\nabla u_{j}\>}{u_{j}^{2}}.
+\]
+Using the equation \eqref{eq:def-u} we see that \eqref{eq:1} is equivalent to
+\[
+\sum_{j} p_{j} \frac{\<\nabla u_{j},\nabla u_{j}\>}{u_{j}^{2}} + \< \vec v , \sum_{j=1}^{m} \frac{p_{j} \nabla u_{j}}{u_{j}} \>
+\geq 0,
+\]
+which we write in the form
+\[
+\sum_{j} p_{j} \< \vec{v}_{j} - \vec v, \vec{v}_{j} \> \geq 0.
+\]
+Since $u_{j}(x)$ depends only on $B_{j}x$ and using \eqref{eq:BB*=id} we see that $\vec{v}_{j} = B_{j}^{*}B_{j} \vec{v}_{j}$, so our claim is equivalent to
+\[
+\sum_{j} p_{j} \< B_{j}^{*}B_{j} (\vec{v}_{j} - \vec v), \vec{v}_{j} \> \geq 0.
+\]
+From \eqref{pbb} we have
+\[
+\sum_{j=1}^m p_j B_j^{*}B_{j} (\vec v - \vec v_j) = \vec v - \sum_{j=1}^m p_j B_j^* B_j \vec v_j = \vec v - \sum_{j=1}^m p_j \vec v_j = 0
+\]
+and hence the claim is equivalent to
+\[
+\sum_{j} p_{j} \< B_{j}^{*}B_{j} (\vec{v}_{j} - \vec v), (\vec{v}_{j} - \vec v) \> \geq 0.
+\]
+This is clearly true, so the claim \eqref{eq:1} holds.
+This finishes the proof of \eqref{eq:Q0<Qinf}.
+
+It remains to show \eqref{qinf}.
+Using \eqref{uj-form} we can write
+\[ Q(t) = \frac{1}{(4\pi t)^{\sum_{j=1}^m p_j \dim(H_j)/2}}
+\int_{H} \prod_{j=1}^m \left(\int_{H_j} e^{- \norm{ B_j x - z}_{H_j}^2/4t} f_j(z)\ dz\right)^{p_j}\ dx.\]
+Making the change of variables $x = t^{1/2} w$ we obtain
+\[ Q(t) = \frac{1}{(4\pi)^{\dim(H)/2}}
+\int_{H} \prod_{j=1}^m \left(\int_{H_j} e^{- \norm{ B_j w - t^{-1/2} z}_{H_j}^2/4} f_j(z)\ dz\right)^{p_j}\ dw.\]
+Since the $f_j$ are rapidly decreasing and $\bigcap_{j=1}^m \ker(B_j) = \{0\}$, we may then use
+dominated convergence to conclude
+\begin{align*}
+\liminf_{t \to \infty} Q(t) &=
+\frac{1}{(4\pi)^{\dim(H)/2}}
+\int_H \prod_{j=1}^m \left(\int_{H_j} e^{-\norm{ B_j w }_{H_j}^2/4} f_j(z)\ dz\right)^{p_j}\ dw \\
+&=\frac{1}{(4\pi)^{\dim(H)/2}} \prod_{j=1}^m \left(\int_{H_j} f_j\right)^{p_j}
+\int_{H} e^{-\< \sum_{j=1}^m p_j B_j^* B_j w, w \>_H/4}\ dw.
+\end{align*}
+Using \eqref{pbb}, the claim \eqref{qinf} follows.
+\end{proof}
+
+\subsection{Gaussian-extremizable case}
+
+\begin{definition}
+\label{extremizability}
+A Brascamp--Lieb datum $(\bfB,\p)$ is said to be \emph{gaussian-extremizable} if there exists a gaussian input $\A$ for which $\BLg(\bfB,\p) = \BLg(\bfB,\p;\A)$.
+\end{definition}
+
+In this section we prove Theorem~\ref{thm:lieb} in the gaussian-extremizable case.
+
+\begin{proposition}
+\label{normal-form}
+Let $(\bfB,\p)$ be a gaussian extremizable Bras\-camp--Lieb datum.
+Then there exist invertible linear transformations $C$ on $H$ and $C_{j}$ on $H_{j}$ such that the BL datum $(\bfB',\p)$ with $\bfB_{j}' = C_{j}B_{j}C$ is geometric.
+\end{proposition}
+
+\begin{proof}
+Let $\A = (A_j)_{1 \leq j \leq m}$ be a gaussian input for $(\bfB,\p)$ that is a local extremizer for $\BLg(\bfB,\p;\A)$.
+Let $M: H \to H$ be given by $M := \sum_{j=1}^m p_j B_j^* A_j B_j$.
+Since the $A_j$ are positive definite and $\bfB$ is non-degenerate, the operator $M$ is also positive definite and in particular invertible.
+We claim that
+\begin{equation}\label{pj-ident}
+A_j^{-1} = B_j M^{-1} B_j^* \text{ for all } 1 \leq j \leq m.
+\end{equation}
+Taking logarithms in \eqref{BLfunctional(not)}, we see that $\A > 0$ is a local maximizer for the quantity
+\begin{equation}
+\label{eq:log-BLg;A}
+\sum_{j=1}^m p_j \log \det_{H_j} A_j - \log \det_H \sum_{j=1}^m p_j B_j^* A_j B_j.
+\end{equation}
+A Taylor expansion shows that for an invertible matrix $A$ and any matrix $Q$ we have
+\[
+\frac{\dif}{\dif \epsilon} \log \det (A+\epsilon Q) \abs{_{\epsilon=0}
+=
+\frac{\dif}{\dif \epsilon} \log \det (1+A^{-1}\epsilon Q) }_{\epsilon=0}
+=
+\tr (A^{-1} Q).
+\]
+Differentiating the quantity \eqref{eq:log-BLg;A} in the variable $A_{j}$ in the direction of a self-adjoint transformation $Q_{j} : H_j \to H_j$ we obtain
+\[
+p_j \tr_{H_j}(A_j^{-1} Q_j) - \tr_H( p_j M^{-1} B_j^* Q_j B_j ) = 0.
+\]
+We rearrange this using the cyclic property of the trace as
+\[
+\tr_{H_j}( (A_j^{-1} - B_j M^{-1} B_j^*) Q_j ) = 0.
+\]
+Since $Q_j$ was an arbitrary self-adjoint transformation, and $A_j^{-1} - B_j M^{-1} B_j^*$ is also self-adjoint, we conclude \eqref{pj-ident}.
+
+Let $B_{j}' := C_{j}B_{j}C$ with $C := M^{-1/2}$ and $C_j := A_j^{-1/2}$.
+It remains to show that $(\bfB',\p)$ is a geometric BL datum.
+From \eqref{pj-ident} we have $B_j' (B_j')^* = \id_{H_j}$, and from definition of $M$ we have
+\[
+\sum_{j=1}^m p_j (B_j')^* B_j'
+=
+\sum_{j=1}^m M^{-1/2} p_j B_j^* A_j B_j M^{-1/2}
+=
+M^{-1/2} M M^{-1/2}
+=
+\id_H.
+\qedhere
+\]
+\end{proof}
+
+\begin{corollary}
+\label{cor:Lieb:gauss-extr}
+Let $(\bfB,\p)$ be a gaussian extremizable Bras\-camp--Lieb datum.
+Then
+\[
+\BL(\bfB,\p) = \BLg(\bfB,\p).
+\]
+\end{corollary}
+
+\begin{proof}
+Both the BL constant and the gaussian BL constant are multiplied by the same Jacobian factor when $B_{j}$ are replaced by $C_{j}B_{j}C$.
+Since they coincide for geometric data by Proposition~\ref{gbl-prop}, they also coincide in the setting of Proposition~\ref{normal-form}.
+\end{proof}
+
+\subsection{Necessity of BCCT condition}
+
+\begin{lemma}\label{necc}
+Let $(\bfB,\p)$ be Brascamp--Lieb datum such that $\BLg(\bfB,\p) < \infty$.
+Then the scaling condition \eqref{scaling} and the BCCT condition \eqref{dimension} hold.
+\end{lemma}
+
+\begin{proof}
+Let $\lambda > 0$ be arbitrary.
+Applying \eqref{BLfunctional} with the gaussian input $(\lambda \id_{H_j})_{1 \leq j \leq m}$ we see that
+\[\BLg(\bfB,\p)^{2} \geq \lambda^{\sum_{j=1}^m p_j \dim(H_j) - \dim(H)} / \det( \sum_{j=1}^m p_{j} B_j^* B_j ).\]
+Since $\lambda$ is arbitrary we obtain \eqref{scaling}.
+
+Next, let $V$ be any subspace in $H$, and let $\lambda>0$.
+Let $\A^{(\lambda)} = (A_j)_{1 \leq j \leq m}$ be the gaussian input $A_j := \lambda \id_{B_j V} + \id_{(B_j V)^\perp}$.
+Then $\det_{H_j}(A_j) = \lambda^{\dim(B_j V)}$.
+Also, we see that $\sum_{j=1}^m p_{j} B_j^* A_j B_j$ is bounded uniformly in $\lambda \leq 1$, and when restricted to $V$ decays linearly in $\lambda$.
+Thus $\det_H(\sum_{j=1}^m B_j^* A_j B_j) \lesssim \lambda^{\dim(V)}$.
+Inserting this in \eqref{BLfunctional(not)} we obtain
+\[
+\infty
+>
+\BLg(\bfB,\p)^{2}
+\geq
+\BLg(\bfB,\p; \A^{(\lambda)})^{2}
+\gtrsim
+\frac{\prod_{j=1}^{m} \lambda^{p_{j} \dim(B_{j} V)}}{\lambda^{\dim V}}.
+\]
+Since this holds for all $0 < \lambda \leq 1$ we obtain \eqref{dimension}.
+\end{proof}
+
+
+\subsection{Sufficiency of BCCT condition for simple data}
+\label{sec:gaussian-BL-finite}
+
+In this section we prove Theorem~\ref{thm:BCCT-g} for simple data, and in fact a more precise statement.
+
+\begin{lemma}\label{babygauss} Let $(\bfB,\p)$ be a non-degenerate Brascamp--Lieb datum such that \eqref{dimension} holds.
+Then there exists a real number $c > 0$, such that for every orthonormal basis $e_1,\ldots,e_n$ of $H$ there exist sets $I_j \subseteq \{1,\ldots,n\}$ for each $1 \leq j \leq m$ with $\abs{I_j} = \dim(H_j)$ such that
+\begin{equation}\label{p-comb-alt}
+\sum_{j=1}^m p_j \abs{I_j \cap \{k+1,\ldots,n\}} \geq n-k \text{ for all } 0 < k < n.
+\end{equation}
+and
+\begin{equation}\label{bjei}
+\norm{ \bigwedge_{i \in I_j} B_j e_i }_{H_{j}} \geq c \text{ for all } 1 \leq j \leq m.
+\end{equation}
+If furthermore $(\bfB,\p)$ is simple, then we can choose $I_{j}$ so that the inequality \eqref{p-comb-alt} is strict.
+\end{lemma}
+
+\begin{proof}
+We claim that it suffices to show a weaker statement, namely that for every orthonormal basis $(\tilde{e}_{i})$ there exist $I_{j}$ as above with
+the conclusion by the weaker statement
+\[
+\bigwedge_{i \in I_j} B_j \tilde{e}_i \neq 0 \text{ for all } 1 \leq j \leq m.
+\]
+Then by continuity we have \eqref{bjei} for $(e_{i})$ in a small neighborhood of $(\tilde{e}_{i})$ with the same sets $I_{j}$.
+Since the space of all orthonormal bases is compact this implies the conclusion.
+
+Hence it suffices to make the vectors $(B_j e_i)_{i \in I_j}$ linearly independent for each $j$.
+We select the $I_j$ by a backwards greedy algorithm:
+\[
+I_{j} :=
+\Set[\big]{ i \given B_{j}e_{i} \not\in \lin \Set{ B_j e_{i'} \given i < i' \leq n } }.
+\]
+Then by backward induction on $i$ we see that $\Set{ B_j e_{i'} \given i \leq i' \leq n, i' \in I_{j} }$ is a basis of the subspace $\lin \Set{ B_j e_{i'} \given i \leq i' \leq n }$.
+Since the $B_j$ are surjective it follows that $\abs{I_j} = \dim(H_j)$.
+To prove \eqref{p-comb-alt}, we apply the hypothesis
+\eqref{dimension} with $V = \lin \Set{ e_{k+1},\dotsc,e_n }$, to obtain
+\begin{align*}
+n-k = \dim(V)
+&\leq
+\sum_j p_j \dim(B_j V)
+\\ &=
+\sum_j p_j \abs{I_j \cap \Set{k+1,\dotsc,n}}.
+\end{align*}
+If the datum is simple, then the above inequality is strict for $0 < k < n$.
+\end{proof}
+
+\begin{proposition}\label{sufbl-meat}
+Let $(\tilde{\bfB},\p)$ be a Brascamp--Lieb datum such that \eqref{scaling} and \eqref{dimension} hold.
+Then there exists a neighborhood $\calB$ of $\tilde{\bfB}$ such that $\sup_{\bfB \in \calB} \BLg(\bfB,\p) < \infty$.
+Furthermore, if $(\tilde{\bfB},\p)$ is simple, then $(\bfB,\p)$ is gaussian-extremizable for every $\bfB \in \calB$.
+\end{proposition}
+
+Proposition~\ref{sufbl-meat} combined with Corollary~\ref{cor:Lieb:gauss-extr} in particular shows the sufficiency of \eqref{scaling} and \eqref{dimension} in Theorem~\ref{thm:BCCT-g} in the case of simple data.
+In fact it provides the more precise conclusion that the gaussian BL constant is uniformly bounded on a neighborhood of the original $m$-transformation.
+This was first made explicit in \cite{MR3783217}.
+More precise result on regularity of $\BL(\bfB,\p)$ as a function of $\bfB$ appear in \cite{MR2836590,MR3723636,arxiv:1811.11052}.
+
+\begin{proof}
+The left-hand side of \eqref{bjei} is a Lipschitz function of $\bfB$, so applying Lemma~\ref{babygauss} to the datum $(\tilde{\bfB},\p)$ and replacing $c$ by a slightly smaller number $c(\tilde{\bfB})$ we may assume that \eqref{bjei} continues to hold for all $\bfB$ in a small neighborhood $\calB$ of $\tilde{\bfB}$.
+
+Let $\A = (A_j)_{1 \leq j \leq m}$ be a gaussian input and $M := \sum_j p_j B_j^* A_j B_j$.
+We want to estimate
+\[
+\BLg( \bfB,\p; \A)^{2} = \frac{ \prod_{j=1}^{m} (\det A_{j})^{p_{j}}}{\det M}.
+\]
+The transformation $M$ is self-adjoint; since $\bfB$ is non-degenerate and $p_j > 0$, we also see that it is positive definite.
+Thus by choosing an appropriate orthonormal basis $\{e_1,\ldots,e_n\} \subset H$ we may assume that $M = \diag(\lambda_1, \ldots, \lambda_n)$ for some $\lambda_1 \geq \ldots \geq \lambda_n > 0$.
+
+Applying Lemma~\ref{babygauss}, we can find $I_j \subseteq \{1,\ldots,n\}$ for each $1 \leq j \leq m$
+of cardinality $\abs{I_j} = \dim(H_j)$
+obeying \eqref{p-comb-alt} and \eqref{bjei}.
+For each $i \in I_j$, we have
+\[ \< A_j B_j e_i, B_j e_i \>_{H_j} = \< e_i, B_j^* A_j B_j e_i \>_{H}
+\leq \frac{1}{p_j} \< e_i, Me_i \>_{H} = \lambda_i / p_j.\]
+Since $A_{j}$ is positive definite and by the Cauchy--Schwarz inequality this implies
+\[
+\abs{\< A_j B_j e_i, B_j e_{i'} \>_{H_j}} \leq (\lambda_{i} \lambda_{i'})^{1/2}/p_{j}.
+\]
+It follows that
+\[
+\abs{ \det (\< A_j B_j e_i, B_j e_{i'} \>_{H_j})_{i,i' \in I_{j}} }
+\leq
+\sum_{\sigma \in S_{I_{j}}} \prod_{i\in I_{j}}(\lambda_{i} \lambda_{\sigma(i)})^{1/2}/p_{j}
+=
+(n_{j}!) p_{j}^{-n_{j}} \prod_{i} \lambda_{i}.
+\]
+On the other hand, from \eqref{bjei} we see that $(B_j e_i)_{i \in I_j}$ is a basis of $H_j$ with a lower bound on the degeneracy.
+We thus conclude that
+\[
+\det(A_j)
+\leq \norm{ \bigwedge_{i \in I_j} B_j e_i }_H^{-2} \abs{ \det (\< A_j B_j e_i, B_j e_{i'} \>_{H_j})_{i,j} }
+\leq
+C_{\bfn,\bfp} c(\tilde{\bfB})^{-2} \prod_{i \in I_j} \lambda_i.
+\]
+Thus
+\[
+\prod_{j=1}^m (\det A_j)^{p_j}
+\lesssim
+\prod_{i=1}^n \lambda_i^{\sum_{j=1}^m p_j \abs{I_j \cap \{i\}}}.
+\]
+with an implicit constant depending only on $\bfn,\p,\tilde{\bfB}$, but not on $\bfB$.
+We can telescope the right-hand side (using \eqref{scaling}) and obtain
+\[ \prod_{j=1}^m (\det A_j)^{p_j}
+\lesssim
+\lambda_{1}^{n} \prod_{1 \leq k \leq {n-1}} (\lambda_{k+1}/\lambda_k)^{\sum_{j=1}^m p_j \abs{I_j \cap \{k+1,\ldots,n\}}}.\]
+Applying \eqref{p-comb-alt} we conclude
+\[ \prod_{j=1}^m (\det A_j)^{p_j}
+\lesssim
+\lambda_{1}^{n} \prod_{1 \leq k \leq {n-1}} (\lambda_{k+1}/\lambda_k)^{n-k}\]
+which by reversing the telescoping becomes
+\[ \prod_{j=1}^m (\det A_j)^{p_j}
+\lesssim
+\lambda_1 \ldots \lambda_k
+=
+\det(M),\]
+so that $\BLg(\bfB,\p; \bfA)^{2} \leq C(\bfn,\p,\tilde{\bfB})$.
+Since $\bfA$ was arbitrary, by definition \eqref{BLfunctional(not)} we conclude that $\BLg(\bfB,\p)^{2} \leq C(\bfn,\p,\tilde{\bfB})$.
+
+Now suppose that $(\tilde{\bfB},\p)$ is simple.
+Then we have strict inequality in \eqref{p-comb-alt}.
+Then it follows that
+\[
+\sum_{j=1}^m p_j \abs{I_j \cap \{k+1,\ldots,n\}} \geq n-k+c' \text{ for all } 0 < k < n
+\]
+with some strictly positive $c'>0$ independent of $\bfB$ since the cardinalities on the left-hand side can only assume finitely many values.
+We may thus refine the above analysis and conclude that
+\[ \prod_{j=1}^m (\det A_j)^{p_j}
+\leq C(\tilde{\bfB})
+\det(M) \prod_{1 \leq k \leq {n-1}} (\lambda_{k+1}/\lambda_k)^{c'}.\]
+This shows that $\BLg( \bfB,\p; \A) \to 0$ whenever $\lambda_n / \lambda_1 \to 0$.
+Thus to evaluate the supremum it suffices to do so in the region $\lambda_1 \leq C \lambda_n$.
+By the scaling hypothesis \eqref{scaling} we may normalize $\lambda_n = 1$.
+This means that $M$ is now bounded above and below, which by surjectivity of $B_j$ implies that $A_j$ is also bounded.
+We may now also assume that $A_j$ is bounded from below since otherwise $\BLg( \bfB,\p; \A)$ will be small.
+We have thus localized each the $A_j$ to a compact set, and hence by continuity we see that an extremizer of $\A \mapsto \BLg( \bfB,\p; \A)$ exists.
+Thus $(\bfB,\p)$ is gaussian-extremizable as desired.
+\end{proof}
+
+\begin{corollary}[Locally uniform BL inequality]
+Let $(\tilde{\bfB},\p)$ be a \emph{simple} Brascamp--Lieb datum such that \eqref{scaling} and \eqref{dimension} hold.
+Then there exists a neighborhood $\calB$ of $\tilde{\bfB}$ such that
+\[
+\sup_{\bfB \in \calB} \BL(\bfB,\p) < \infty.
+\]
+\end{corollary}
+\begin{proof}
+By Proposition~\ref{babygauss} we know that the gaussian BL constant is bounded uniformly on a neighborhood $\calB$ and each datum $(\bfB,\p)$ with $\bfB\in\calB$ is gaussian extremizable.
+By Corollary~\ref{cor:Lieb:gauss-extr} the gaussian BL constants coincide with the full BL constants on this neighborhood.
+\end{proof}
+
+The argument in \cite{MR2377493} for non-simple data is based on a decomposition of non-simple data as a kind of semidirect product of simple data.
+We will be content with the simple case.

@@ -1,0 +1,57 @@
+\section{Estimates for Weyl sums}
+\cite[Theorem 5.2]{MR1435742}
+Let
+\[
+f_{k}(\vec\alpha; X) := \sum_{x=1}^{X} e(\alpha_{1}x + \dotsb \alpha_{k}x^{k}).
+\]
+\begin{theorem}
+Let $k$ be an integer with $k > 2$, and let $\vec\alpha \in \R^{k}$.
+Suppose that there exists a natural number $j$ with $2 \leq j \leq k$ such that, for some $a \in \Z$
+and $q \in \N$ with $(a, q) = 1$, one has $\abs{\alpha_{j} - a/q} \leq q^{-2}$ and $q \leq X^{j}$.
+Then one has
+\[
+f_{k} (\vec\alpha; X) \lesssim X^{1+\epsilon} (q^{-1} + X^{-1} + qX^{-j} )^{1/(k(k-1))}
+\]
+\end{theorem}
+% Almost all coefficients: \cite{MR3519125}, \cite{arxiv:1903.07330}
+
+With notation from \cite[Section 5.2]{MR1435742}
+\begin{lemma}
+For $2 \leq j \leq k$ and integers $1 \leq x,y \leq N$ we have
+\[
+\norm{(j \dotsm k) \alpha_{j}(x-y)}
+\lesssim
+\sum_{h=j-1}^{k-1} \norm{ \gamma_{h}(x) - \gamma_{h}(y) } N^{h-j+1}
+\]
+\end{lemma}
+\begin{proof}
+By downward induction on $j$.
+Suppose that the claim is already known for all larger $j$.
+Expand
+\begin{align*}
+\gamma_{j-1}(x)-\gamma_{j-1}(y)
+&=
+\sum_{h=j-1}^{k} \alpha_{h} \binom{h}{j-1} ((-x)^{h-j+1}-(-y)^{h-j+1})
+\\ &=
+\sum_{h=j}^{k} (-1)^{h-j+1} \alpha_{h} \binom{h}{j-1} (x-y)(x^{h-j}+x^{h-j-1}y+\dotsb+y^{h-j})
+\end{align*}
+Hence
+\begin{align*}
+\MoveEqLeft
+\norm{(j \dotsm k) \alpha_{j} (x-y)}
+=
+\norm{((j+1) \dotsm k) \alpha_{j} \binom{j}{j-1} (x-y)}
+\\ &\leq
+((j+1) \dotsm k) \norm{\gamma_{j-1}(x)-\gamma_{j-1}(y)}
+\\ &\quad + \sum_{h=j+1}^{k} \norm{((j+1) \dotsm k) \alpha_{h} \binom{h}{j-1} (x-y)(x^{h-j}+\dotsb+y^{h-j})}
+\\ &\lesssim
+\norm{\gamma_{j-1}(x)-\gamma_{j-1}(y)} + \sum_{h=j+1}^{k} \norm{(h \dotsm k) \alpha_{h} (x-y)} (x^{h-j}+\dotsb+y^{h-j})
+\\ &\lesssim
+\norm{\gamma_{j-1}(x)-\gamma_{j-1}(y)} + \sum_{h=j+1}^{k} N^{h-j} \sum_{h'=h-1}^{k-1} \norm{\gamma_{h'}(x)-\gamma_{h'}(y)} N^{h'-h+1}
+\\ &=
+\norm{\gamma_{j-1}(x)-\gamma_{j-1}(y)} + \sum_{h=j+1}^{k} \sum_{h'=h-1}^{k-1} \norm{\gamma_{h'}(x)-\gamma_{h'}(y)} N^{h'-j+1}
+\\ &\sim
+\sum_{h'=j-1}^{k-1} \norm{\gamma_{h'}(x)-\gamma_{h'}(y)} N^{h'-j+1}.
+\qedhere
+\end{align*}
+\end{proof}

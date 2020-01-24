@@ -1,0 +1,681 @@
+\section{Decoupling for the moment curve}
+
+\subsection{Vinogradov mean value}
+It is of interest in number theory to estimate Weyl sums such as
+\[
+\sum_{x=1}^{X} e(\xi_{1} x^{1} + \dotsb + \xi_{k}x^{k} ).
+\]
+Vinogradov's method deduces bounds for pointwise values (for fixed $\vec\xi = (\xi_{1},\dotsc,\xi_{k})$) from bounds for averages (\emph{mean values}) over all $\vec\xi$.
+Specifically, it needs estimates on the moments
+\begin{equation}
+\label{eq:Vinogradov-mean-value}
+\int_{\vec\xi \in [0,1]^{k}} \abs[\Big]{ \sum_{x=1}^{X} e(\xi_{1} x^{1} + \dotsb + \xi_{k}x^{k} ) }^{p} \dif\vec\xi.
+\end{equation}
+When the exponent $p=2s$ is an even integer, the expression \eqref{eq:Vinogradov-mean-value} can be interpreted as counting the solutions of a system of equations.
+Indeed, the $2s$-power of the absolute value can be expanded, and each summand contributes $1$ to the integral if its frequency vanishes and $0$ otherwise.
+The frequency vanishes iff the following system of equations holds.
+\begin{equation}
+\label{eq:Vinogradov-system}
+\begin{split}
+x_{1} + \dotsb + x_{s} &= x_{s+1} + \dotsb + x_{2s} \\
+& \vdots \\
+x_{1}^{k} + \dotsb + x_{s}^{k} &= x_{s+1}^{k} + \dotsb + x_{2s}^{k}.
+\end{split}
+\end{equation}
+The number $J_{s,k}(X)$ of integer solutions to the system of equations \eqref{eq:Vinogradov-system} with all entries in the interval $[1,X]$ is certainly at least $X^{s}$ (considering the ``diagonal'' solutions $x_{s+j}=x_{j}$).
+Another estimate comes from a more elaborate counting argument.
+For $Y=(Y_{1},\dotsc,Y_{k})$ let $J_{s,k}(X,Y)$ be the number of integer solutions with all entries in $[1,X]$ of the system of equations
+\begin{align*}
+x_{1} + \dotsb + x_{s} &= Y_{1} \\
+& \vdots \\
+x_{1}^{k} + \dotsb + x_{s}^{k} &= Y_{k}.
+\end{align*}
+Then
+\[
+X^{s} = \sum_{Y_{1}=0}^{sX} \dots \sum_{Y_{k}=0}^{sX^{k}} J_{s,k}(X,Y).
+\]
+On the other hand,
+\[
+J_{s,k}(X) = \sum_{Y_{1}=0}^{sX} \dots \sum_{Y_{k}=0}^{sX^{k}} \bigl( J_{s,k}(X,Y) \bigr)^{2}.
+\]
+By the Cauchy--Schwarz inequality it follows that
+\begin{multline*}
+X^{s}
+=
+\sum_{Y_{1}=0}^{sX} \dots \sum_{Y_{k}=0}^{sX^{k}} J_{s,k}(X,Y)
+\leq
+\Bigl( \sum_{Y_{1}=0}^{sX} \dots \sum_{Y_{k}=0}^{sX^{k}} J_{s,k}(X,Y)^{2} \Bigr)^{1/2}
+\Bigl( \sum_{Y_{1}=0}^{sX} \dots \sum_{Y_{k}=0}^{sX^{k}} 1 \Bigr)^{1/2}
+\\ =
+J_{s,k}(X)^{1/2} s^{k/2} X^{(1+\dotsb+k)/2}.
+\end{multline*}
+Combining this with the estimate for the number of diagonal solutions we obtain
+\[
+J_{s,k}(X) = \eqref{eq:Vinogradov-mean-value}
+\geq \max (X^{s}, s^{-k} X^{2s - \frac{k(k+1)}{2}}).
+\]
+It turns out that this lower bound is essentially sharp, as proved in \cite{MR3548534} and \cite{MR3938716}.
+We will present the decoupling proof from \cite{MR3548534} with some simplifications coming from later works \cite{MR3709122,MR3994585,MR4031117,arxiv:1902.03450}.
+The two lower bounds that we obtained coincide when $p=2s=k(k+1)$, so this ``critical'' exponent can be expected to play a special role.
+We will indeed consider only $p=k(k+1)$, since sharp results for other $p$'s can be obtained by interpolation.
+\begin{remark}
+The reduction to a unique critical exponent is special to the one-dimensional situation, in higher dimensions there may be many critical exponents.
+In fact it becomes preferable not to single out any exponents.
+\end{remark}
+
+
+\subsection{Statement of the main result}
+We will formulate a decoupling theorem for functions with Fourier support close to the unit moment curve $\Set{(\xi,\xi^{2},\dotsc,\xi^{k}) \given \xi \in [0,1]}$.
+There is only one parameter, so cubes in the decoupling theorem for the paraboloid become just intervals.
+We continue to denote by $\Part[Q]{\delta}$ the partition of an interval $Q$ into dyadic intervals of length $\delta$.
+We omit $Q$ if $Q=[0,1]$.
+We denote by $f_{\theta}$ a function whose Fourier support is adapted to the image of $\theta$ in the moment curve (this will be made precise when we describe the affine scaling procedure).
+We denote by $\Dec_{k}(\delta)$ the smallest constant in the inequality
+\begin{equation}
+\label{eq:Dec-const-moment}
+\norm{ \sum_{\theta \in \Part{\delta}} f_{\theta} }_{L^{k(k+1)}(\R^{k})} \leq \Dec_{k}(\delta) \ell^{2}_{\theta \in \Part{\delta}} \norm{ f_{\theta} }_{L^{k(k+1)}(\R^{k})}.
+\end{equation}
+We do not include the exponents $k(k+1)$ and $2$ in the notation since these will be the only exponents that we consider.
+\begin{theorem}
+\label{thm:Dec-moment}
+For every $k\geq 1$ and $\epsilon>0$ we have $\Dec_{k}(\delta) \lesssim_{\epsilon} \delta^{-\epsilon}$.
+\end{theorem}
+Theorem~\ref{thm:Dec-moment} will be proved by induction on $k$.
+The case $k=1$ is just $L^{2}$ orthogonality (in fact we have also already proved the case $k=2$, since this is the case of the one-dimensional paraboloid).
+We will henceforth assume that $k\geq 2$ and Theorem~\ref{thm:Dec-moment} is already known for smaller values of $k$.
+
+The main technical difficulties in the case of the moment curve are different from the case of the paraboloid.
+The Bourgain--Guth argument is much easier, since all lower-dimensional contributions are zero-dimensional.
+On the other hand, the treatment of multilinear terms becomes more sophisticated.
+
+\subsubsection{Consequences for Vinogradov mean values}
+By the usual procedure the inequality \eqref{eq:Dec-const-moment} can be localized to balls of radius $\gtrsim \delta^{-k}$.
+Then we choose $\delta \sim X^{-1}$ and let each $\widehat{f_{\theta}}$ be supported in a point on the moment curve over a rational number with denominator $X$.
+The right-hand side can then be easily computed since $\abs{f_{\theta}} \equiv \const$.
+On the other hand, by periodicity the left-hand side coincides up to scaling with \eqref{eq:Vinogradov-mean-value}.
+After scaling this gives the estimate
+\[
+\int_{\vec\xi \in [0,1]^{k}} \abs[\Big]{ \sum_{x=1}^{X} e(\xi_{1} x^{1} + \dotsb + \xi_{k}x^{k} ) }^{k(k+1)} \dif\vec\xi
+\lesssim_{\epsilon}
+X^{k(k+1)/2+\epsilon}.
+\]
+
+\subsubsection{Affine scaling}
+\label{sec:scaling}
+Let $\theta \in \Part[\sigma]$ with left endpoint $c=c(\theta)$.
+Consider the affine transformation
+\begin{equation}
+\label{eq:affine-scaling:space}
+(L_{\theta}(x))_{j} =
+\sigma^{j} \sum_{i : 0 \leq i \leq j} \binom{i}{j} (c)^{j-i} x_{i},
+\quad
+1 \leq j \leq k,
+\end{equation}
+where we set $x_{0}=1$.
+This transformation preserves the moment curve and maps the point $0$ to the image of $c$ in the moment curve.
+The support condition that we impose on our functions is that $\supp \widehat{f_{\theta}}$ is contained in the image of a fixed ball centered at the origin under $L_{\theta}$.
+Then for $\theta_{0} \in \Part{\delta_{0}}$ we immediately obtain the rescaled decoupling inequality
+\[
+\norm{ \sum_{\theta' \in \Part[\theta_{0}]{\delta_{0}\delta_{1}}} f_{\theta'} }_{L^{k(k+1)}(\R^{k})}
+\leq
+\Dec_{k}(\delta_{1}) \ell^{2}_{\theta' \in \Part[\theta]{\delta_{0}\delta_{1}}} \norm{ f_{\theta'} }_{L^{k(k+1)}(\R^{k})}.
+\]
+
+\subsection{Transversality}
+\label{sec:transversality}
+The functions $f_{\theta}$ have Fourier support in boxes of size $\delta \times \delta^{2} \times \dotsm \times \delta^{k}$.
+Hence they are morally constant on boxes of size $\delta^{-1} \times \delta^{-2} \times \dotsm \times \delta^{-k}$.
+We need a description of orientation of these boxes.
+To this end we will use the higher order tangent spaces
+More precisely, we use the $l$-th order tangent spaces
+\begin{equation}\label{order_tangent}
+V^{(l)}(t):=\lin \Set{\partial^{j} \Phi(t) \given 1 \leq j \leq l} \subseteq \R^{k},
+\quad t\in [0, 1],
+\end{equation}
+where $\Phi(t) = (t^{\gamma})_{1\leq \gamma\leq k}$ parametrizes the moment curve.
+If $t\in\theta$, then the function $f_{\theta}$ is morally constant at scale $\delta^{-l-1}$ in the orthogonal direction to $V^{(l)}(t)$.
+
+In order to make use of Kakeya--Brascamp--Lieb inequalities we have to verify that the spaces $V^{(l)}(t)$ are transverse when we consider sufficiently widely spaced $t$'s.
+Due to the lack of an explicit description of BL constants, transversality in this case means that the BCCT condition for finiteness of BL constants is satisfied.
+In contrast to the paraboloid case it is not a priori clear how many different $t$'s one would have to consider to achieve such transversality.
+
+\subsubsection{Projections onto higher order tangential spaces}
+In the case of the moment curve we get lucky and it turns out that for any subspace $V \subseteq \R^{k}$ the projection onto $V^{(l)}(t)$ almost always has maximal possible dimension.
+\begin{theorem}
+\label{thm:moment-rank}
+For each $k\ge 1$ there exists $M_{0,k}$ such that for every subspace $V \subseteq \R^{k}$ and every $1\leq l\leq k$ we have
+\begin{equation}
+\label{eq:moment-rank}
+\dim \pi_{V^{(l)}(t)} V = \min(l,\dim V)
+\end{equation}
+for all but at most $M_{0,k}$ values of $t \in [0,1]$.
+\end{theorem}
+\begin{proof}
+Decreasing the dimension of $V$ or $l$ if necessary we may assume without loss of generality $\dim V = l$.
+Fix a basis $(v_{1},\dotsc,v_{l})$ of $V$ such that $a_{h} := \max \Set{ j \given v_{h,j} \neq 0 }$ is strictly decreasing in $h=1,\dotsc,l$.
+The dimension on LHS\eqref{eq:moment-rank} equals the rank of the $l\times l$ matrix
+\begin{equation}
+\calM_V^{(l)}(t)
+:=
+\bigl( v_1, \dotsc, v_{l} \bigr)^T \times \bigl( \partial^{j} \Phi(t) \bigr)_{1 \leq j \leq l}
+\end{equation}
+over $\R$.
+We claim that the determinant of this matrix is a non-zero polynomial in $t$.
+This will suffice to establish the claim since the degree of this polynomial is bounded by some $M_{0,k}$, so it will have at most $M_{0,k}$ zeros.
+If $t$ is not a zero of this poynomial, then $\calM_{V}^{(l)}(t)$ has real rank $l$.
+
+To simplify notation write $f_{v}(x) := \sum_{i=1}^{l} v_{i}x^{i}$.
+Then
+\[
+\calM_V^{(l)}(t) = ( \partial^{j} f_{v_h} )_{1 \leq j,h \leq l}.
+\]
+Note that $\deg f_{h} = a_{h}$ is striclty decreasing in $h$.
+Applying column and row transformations over the field of rational functions $\R(x)$ we obtain the matrix
+\[
+( x^{-a_{h}} x^{j} \partial^{j} f_{v_h} )_{1 \leq j,h \leq l}.
+\]
+All entries of this matrix are linear combinations of non-positive powers of $x$.
+Hence the constant term in its determinant equals the determinant of constant terms, which is given by
+\[
+\det ( (a_{h} \dotsm (a_{h}-j+1)) v_{h,a_{h}} )_{1 \leq j,h \leq l}.
+\]
+Since all $v_{h,a_{h}}$ are non-zero this determinant is non-zero iff
+\[
+\det ( a_{h} \dotsm (a_{h}-j+1) )_{1 \leq j,h \leq l}
+\]
+is non-zero.
+In the $j$-th row all entries are polynomials in $a_{h}$ of degree $j$.
+By row operations one can bring this determinant in the form
+\[
+\det ( a_{h}^{j} )_{1 \leq j,h \leq l}.
+\]
+But this is $a_{1}\dotsm a_{h}$ times a Vandermonde determinant, so non-zero.
+\end{proof}
+
+
+
+\subsubsection{Verification of BCCT condition}
+\begin{corollary}
+For every $k$ there exists $M$ such that for any distinct $t_{1},\dotsc,t_{M} \in [0,1]$ and any $1 \leq l < k$ we have
+\[
+BL((V^{(l)}(t_{j}))_{j=1}^{M}) < \infty
+\]
+and this BL datum is simple.
+\end{corollary}
+It is not necessary to ensure simplicity to proceed with the proof, but we only proved the BCCT criterion for finiteness of BL constants in the simple case.
+\begin{proof}
+By the BCCT condition the BL constant is finite if for every subspace $V \subseteq \R^{k}$ we have
+\begin{equation}
+\tag{BCCT}
+\dim V \leq \frac{k}{l M} \sum_{m=1}^{M} \dim \pi_{V^{(l)}(t_{j})} V
+\end{equation}
+with equality for $V=\R^{k}$.
+We have actually only proved this in the simple case when the inequality is strict for $0 < \dim V < k$, and we will be able to put ourselves in this situation.
+The equality in the case $\dim V = k$ is easy to see.
+
+Assume now $\dim V < k$.
+By Theorem~\ref{thm:moment-rank} we have
+\[
+\dim \pi_{V^{(l)}(t_{j})} V = \min(l, \dim V)
+\]
+for all but at most $M_{0,k}$ many $t$'s.
+Hence
+\begin{multline*}
+RHS(BCCT) \geq
+\frac{k (M-M_{0,k})}{l M} \min(l, \dim V)
+=
+\frac{M-M_{0,k}}{M} \min(k, \frac{k}{l} \dim V)\\
+\geq
+\frac{M-M_{0,k}}{M} \frac{k}{k-1} \dim V,
+\end{multline*}
+where we used $\dim V \leq k-1$ in the last step.
+So it suffices to choose $M$ large enough so that $\frac{M-M_{0,k}}{M} \frac{k}{k-1} > 1$.
+\end{proof}
+
+\begin{corollary}
+\label{cor:not-clustered-implies-transverse}
+For every $K$ there exists $\nu=\nu_{K}$ such that any $K^{-1}$-separated $\alpha_1, \dotsc, \alpha_M \in \Part{K^{-1}}$ are \emph{$\nu$-transverse} in the sense that for every $1 \leq l < k$ and any $x_{j} \in \alpha_{j}$ we have
+\[
+\BL((V^{(l)}(x_{j}))_{j=1}^{M})
+\leq \nu^{-1}.
+\]
+\end{corollary}
+\begin{proof}
+We have already seen that the BL constants are finite.
+The uniform upper bound follows from the fact that the BL constants are locally bounded on the set where they are finite and compactness.
+\end{proof}
+
+\begin{remark}
+The above compactness argument is ineffective.
+It would be desirable to replace it by an explicit estimate for BL constants.
+\end{remark}
+
+\subsection{Bourgain--Guth argument}
+We will work with $M$-linear expressions with $M$ given by Corollary~\ref{cor:not-clustered-implies-transverse}.
+We denote $\avprod A_{i} := \avprod_{i} A_{i} := \prod_{i=1}^{M} A_{i}^{1/M}$ and $p:=k(k+1)$.
+
+For a positive integer $K$ and $0 < \delta < K^{-1}$ we denote by $\MulDec_{k}(\delta, K)$ the smallest constant such that the inequality
+\begin{equation}
+\label{eq:multilin-dec-const-KM}
+L^{p}_{x\in \R^{k}} \avprod \norm{ f_{\alpha_{i}} }_{\avL^{p}(B(x,K))}\\
+\le \MulDec_{k}(\delta, K)
+\avprod \ell^{2}_{\theta \in \Part[\alpha_i]{\delta}} \norm{ f_{\theta} }_{L^p(\R^{k})}
+\end{equation}
+holds for every $\nu_{K}$-transverse tuple $\alpha_{1},\dotsc,\alpha_{M} \in \Part{K^{-1}}$.
+
+\begin{theorem}
+\label{thm:multilinear-to-linear}
+For each $\epsilon>0$ there exists $K\geq 1$ such that for all $0 < \delta < 1$ we have
+\begin{equation}
+\Dec(\delta)
+\lesssim
+\delta^{-\epsilon}
++ \delta^{-\epsilon} \max_{\delta\le \delta'\le 1}(\delta/\delta')^{-\epsilon} \MulDec(\delta', K).
+\end{equation}
+\end{theorem}
+Theorem~\ref{thm:multilinear-to-linear} is obtained by iterating Corollary~\ref{cor:bourgain-guth-arg:scaled} that is a rescaled version of the following Proposition~\ref{prop:bourgain-guth-arg}.
+This iteration goes back to \cite{MR2860188}.
+\begin{proposition}
+\label{prop:bourgain-guth-arg}
+For every $0<\delta<K^{-1}$ we have
+\begin{equation}
+\label{eq:BG-arg}
+\norm{f}_{p}
+\lesssim
+\ell^{2}_{\alpha\in \Part{K^{-1}}} \norm{ f_{\alpha} }_{p}
++ K^{M+1} \MulDec(\delta, K) \ell^{2}_{\theta \in \Part{\delta}} \norm{ f_{\theta} }_{p}
+\end{equation}
+\end{proposition}
+\begin{proof}[Proof of Proposition~\ref{prop:bourgain-guth-arg}]
+Let $B \subset \R^{k}$ be a ball of radius $K$ and
+\[
+S_{B} := \ell^{2}_{\alpha\in\Part{K^{-1}}} \norm{ f_\alpha }_{\avL^{p}(B)}.
+\]
+If $\norm{ f }_{\avL^{p}(B)} \geq 2M S_{B}$, then there exist at least $2M$ cubes $\alpha \in \Part{K^{-1}}$ with
+\[
+\norm{ f_\alpha }_{\avL^{p}(B')} \geq (2K)^{-1} \norm{ f }_{\avL^{p}(B)}.
+\]
+So we can choose $M$ cubes $\alpha_{1},\dotsc,\alpha_{M} \in \Part{K^{-1}}$ that are $K^{-1}$-separated and
+\[
+\norm{ f }_{\avL^{p}(B)} \leq K \avprod \norm{ f_{\alpha_{i}} }_{L^{p}(B)}.
+\]
+Hence in any case
+\[
+\norm{ f }_{\avL^{p}(B)} \lesssim
+\ell^{2}_{\alpha\in\Part{K^{-1}}} \norm{ f_\alpha }_{\avL^{p}(B)}
++
+K \sum_{\alpha_{1},\dotsc,\alpha_{M} \in \Part{K^{-1}}} \avprod \norm{ f_{\alpha_{i}} }_{L^{p}(B)},
+\]
+where the sum runs over all $K^{-1}$-separated tuples.
+Integrating this inequality over $B$ we obtain
+\begin{align*}
+\norm{ f }_{L^{p}(\R^{k})}
+&=
+L^{p}_{x \in \R^{k}} \norm{ f }_{\avL^{p}(B(x,K))}
+\\ &\leq
+C L^{p}_{x \in \R^{k}} \ell^{2}_{\alpha\in\Part{K^{-1}}} \norm{ f_\alpha }_{\avL^{p}(B(x,K))}
++
+K L^{p}_{x \in \R^{k}} \sum_{\substack{\alpha_{1},\dotsc,\alpha_{M} \in \Part{K^{-1}} \\ K^{-1}\text{-separated}}} \avprod \norm{ f_{\alpha_{i}} }_{L^{p}(B(x,K))}
+\\ &\leq
+C \ell^{2}_{\alpha\in\Part{K^{-1}}} L^{p}_{x \in \R^{k}} \norm{ f_\alpha }_{\avL^{p}(B(x,K))}
++
+K \sum_{\substack{\alpha_{1},\dotsc,\alpha_{M} \in \Part{K^{-1}} \\ K^{-1}\text{-separated}}} L^{p}_{x \in \R^{k}} \avprod \norm{ f_{\alpha_{i}} }_{L^{p}(B(x,K))}
+\\ &\leq
+C \ell^{2}_{\alpha\in\Part{K^{-1}}} \norm{ f_\alpha }_{L^{p}(\R^{k})}
++
+K \sum_{\substack{\alpha_{1},\dotsc,\alpha_{M} \in \Part{K^{-1}} \\ K^{-1}\text{-separated}}} \Dec_{k}(\delta,K) \avprod \ell^{2}_{\theta \in \Part[\alpha_{i}]{\delta}} \norm{ f_{\theta} }_{L^{p}(\R^{k})}
+\\ &\leq
+C \ell^{2}_{\alpha\in\Part{K^{-1}}} \norm{ f_\alpha }_{L^{p}(\R^{k})}
++
+K \sum_{\alpha_{1},\dotsc,\alpha_{M} \in \Part{K^{-1}}} \Dec_{k}(\delta,K) \avprod \ell^{2}_{\theta \in \Part{\delta}} \norm{ f_{\theta} }_{L^{p}(\R^{k})}
+\\ &\leq
+C \ell^{2}_{\alpha\in\Part{K^{-1}}} \norm{ f_\alpha }_{L^{p}(\R^{k})}
++
+K^{M+1} \Dec_{k}(\delta,K) \ell^{2}_{\theta \in \Part{\delta}} \norm{ f_{\theta} }_{L^{p}(\R^{k})}.
+\qedhere
+\end{align*}
+\end{proof}
+
+\begin{corollary}
+\label{cor:bourgain-guth-arg:scaled}
+For $0 < \delta < K^{-1}$ we have
+\begin{equation}
+\label{eq:BG-arg:scaled}
+\Dec(\delta)
+\leq \max\Bigl( C \Dec(K \delta), K^{M+1} \MulDec(\delta, K) \Bigr).
+\end{equation}
+\end{corollary}
+
+\begin{proof}[Proof of Theorem~\ref{thm:multilinear-to-linear}]
+Choose $K \in 2^{k\N}$ so large that the $C$ on the right-hand side of \eqref{eq:BG-arg:scaled} is bounded by $K^{\epsilon}$.
+For $\delta < 1/K$ iterate the inequality \eqref{eq:BG-arg:scaled} $\floor[\big]{\frac{\log \delta}{\log K}}$ times and use a trivial estimate for $\Dec$ at the end.
+\end{proof}
+
+From Theorem~\ref{thm:multilinear-to-linear} it follows that if for some $\eta \geq 0$, all $K\in 2^{\N}$, and all $0 < \delta < 1$ we have
+\begin{equation}
+\label{eq:multlin-dec-power}
+\MulDec(\delta, K)
+\lesssim_{K}
+\delta^{-\eta},
+\end{equation}
+then we obtain
+\begin{equation}
+\label{eq:lin-dec-power-iteration}
+\Dec(\delta)
+\lesssim_{\epsilon}
+\delta^{-\eta - \epsilon}
+\end{equation}
+for every $\epsilon>0$.
+Let $\eta$ be the smallest exponent in the decoupling inequality.
+
+\subsection{Induction on scales}
+\label{sec:induction-on-scales}
+We fix $K^{-1}$-separated intervals $\alpha_{1},\dotsc,\alpha_{M} \in \Part{K^{-1}}$ and functions $f_{\theta}$.
+We write
+\[
+n_{l} = l,
+\quad
+\calK_{l} = 1+\dotsb+l = \frac{l(l+1)}{2},
+\quad
+p = k(k+1).
+\]
+For $1 \leq l \leq k$ define
+\begin{align*}
+p_{l} &:= p \frac{\calK_{l}}{\calK_{k}} = l(l+1),\\
+t_{l} &:= p \frac{n_{l}}{n_{k}} = l(k+1).
+\end{align*}
+Here $p_{l}$ is the sharp decoupling exponent for the $l$-th moment curve and $t_{l}$ is an exponent in the BL inequality that we will use.
+
+Define $\alpha_l$ and $\beta_l$ by
+\begin{align}
+\label{eq:alpha}
+\frac{1}{\frac{n_{l}}{n_{k}}}
+&=
+\frac{\alpha_l}{\frac{n_{l+1}}{n_{k}}}+\frac{1-\alpha_l}{\frac{\calK_{l}}{\calK_{k}}},
+& 1 \leq l < k,\\
+\label{eq:beta}
+\frac{1}{\frac{\calK_{l}}{\calK_{k}}}
+&=
+\frac{1-\beta_l}{\frac{\calK_{l-1}}{\calK_{k}}}+\frac{\beta_l}{\frac{n_{l}}{n_{k}}},
+& 1 < l < k,
+\end{align}
+and $\beta_{1}:=1$.
+
+For $2 \leq t \leq p$, $0<b<1$, and $b<s$ let
+\begin{equation}
+\label{eq:A}
+A_{t} (b, s)
+:=
+L^{p}_{x} \avprod \ell^{2}_{\beta \in \Part[\alpha_i]{\delta^{b}}} \norm{f_{\beta}}_{\avL^t(w_{B(x,\delta^{-s})})}.
+\end{equation}
+The induction on scales argument will involve the quantities
+\[
+A_{t(l)}(b) := A_{t_{l}}(b,lb),
+\]
+\[
+A_{p(l)}(b) := A_{p_{l}}(b,(l+1)b).
+\]
+Here $t(l)$ and $p(l)$ are formal expressions and can be read ``of type $t$ with degree $l$'' and ``of type $p$ with degree $l$''.
+For $0<b<1$ and $*=t(l),p(l)$ let
+\[
+a_{*}(b) := \inf \Set{ a \given A_{*}(b) \lesssim_{a,K} \delta^{-a} RHS\eqref{eq:multilin-dec-const-KM} \text{ for all } K }.
+\]
+
+\subsubsection{Linear decoupling}
+We can use H\"older to eliminate all multilinearity and use the linear decoupling estimate.
+For $1 \leq t \leq p$ and $1 \leq l \leq k$ this gives the bound
+\begin{equation}
+\label{eq:A<prod}
+\begin{split}
+A_{t}(b,s)
+&=
+L^{p}_{x} \avprod \ell^{2}_{\beta \in \Part[\alpha_{i}]{\delta^{b}}} \norm{ f_{\beta} }_{\avL^{t}(w_{B(x,\delta^{-lb})})}
+\\ &\leq
+\avprod \ell^{2}_{\beta \in \Part[\alpha_{i}]{\delta^{b}}} L^{p}_{x} \norm{ f_{\beta} }_{\avL^{p}(w_{B(x,\delta^{-lb})})}
+\\ &=
+\avprod \ell^{2}_{\beta \in \Part[\alpha_{i}]{\delta^{b}}} \norm{ f_{\beta} }_{L^{p}(\R^{k})}
+\\ &\leq
+\Dec(\delta^{1-b})
+\avprod \ell^{2}_{\beta \in \Part[\alpha_{i}]{\delta}} \norm{ f_{\beta} }_{p}
+\\ &\lesssim_{\epsilon}
+\delta^{-\eta(1-b)-\epsilon}
+\avprod \ell^{2}_{\beta \in \Part[\alpha_{i}]{\delta}} \norm{ f_{\beta} }_{p}.
+\end{split}
+\end{equation}
+This shows
+\begin{equation}
+\label{eq:a*:linear-dec}
+a_{*}(b) \leq \eta(1-b).
+\end{equation}
+
+\subsubsection{Bourgain--Guth argument}
+First we estimate the left-hand side of \eqref{eq:multilin-dec-const-KM} by the quantities involved in the iterative procedure.
+For $1 \leq l \leq k$, $1 \leq t \leq p$, $0<b \leq s$, and $\delta$ sufficiently small so that $\delta^{-s}\geq K$ we have
+\begin{equation}
+\label{eq:multlin<A}
+\begin{split}
+LHS\eqref{eq:multilin-dec-const-KM}
+&=
+L^{p}_{x\in \R^{k}} \avprod \norm{ f_{\alpha_{i}} }_{\avL^{p}(B(x,K))}
+\\ &\lesssim
+L^{p}_{x\in \R^{k}} \avprod \norm{ f_{\alpha_{i}} }_{\avL^{p}(B(x,\delta^{-s}))}
+\\ &\leq
+L^{p}_{x\in \R^{k}} \avprod \sum_{\beta \in \Part[\alpha_{i}]{\delta^{b}}} \norm{ f_{\beta} }_{\avL^{p}(B(x,\delta^{-s}))}
+\\ &\lesssim
+\delta^{-b/2-(s-b)k(1/t-1/p)} L^{p}_{x\in \R^{k}} \avprod \ell^{2}_{\beta \in \Part[\alpha_{i}]{\delta^{b}}} \norm{ f_{\beta} }_{\avL^{t}(w_{B(x,\delta^{-s})})}
+\\ &\leq
+\delta^{-Cb} A_{*}(b).
+\end{split}
+\end{equation}
+Here we have used the reverse H\"older inequality (Corollary~\ref{cor:rev-holder}) to estimate the $\avL^{p}$ norm by the $\avL^{t}$ with some loss.
+This shows
+\begin{equation}
+\label{eq:a*:BG}
+\eta \leq Cb + a_{*}(b).
+\end{equation}
+
+\subsubsection{Ball inflation}
+Similar to the paraboloid case we obtain the following results from Kakeya--Brascamp--Lieb inequalities.
+
+\begin{lemma}[Ball inflation]
+\label{lem:ball-inflation}
+Let $1\le l < k$, $1 \leq t < \infty$.
+Let $\rho \leq 1/K$ and let $B \subset \R^{k}$ be a ball of radius $\rho^{-(l+1)}$.
+Then we have
+\begin{equation}
+\label{eq:ball-inflation}
+\avL^{t \frac{k}{l}}_{x\in B} \avprod \ell^{t}_{\beta \in \Part[\alpha_i]{ \rho}} \norm{f_{\beta}}_{\avL^{t}(w_{B(x,\rho^{-l})})}
+\lesssim_{\nu,\epsilon} \rho^{-\epsilon}
+\avprod \ell^{t}_{\beta \in \Part[\alpha_i]{\rho}} \norm{ f_{\beta} }_{\avL^{t}(w_B)}.
+\end{equation}
+\end{lemma}
+
+\begin{corollary}[Ball inflation]
+\label{cor:ball-inflation}
+Let $1\le l < k$, $1 \leq q \leq t < \infty$.
+Let $\rho \leq 1/K$ and let $B \subset \R^{k}$ be a ball of radius $\rho^{-(l+1)}$.
+Then we have
+\begin{equation}
+\label{eq:ball-inflation}
+\avL^{t \frac{k}{l}}_{x\in B} \avprod \ell^{q}_{\beta \in \Part[\alpha_i]{ \rho}} \norm{f_{\beta}}_{\avL^{t}(w_{B(x,\rho^{-l})})}
+\lesssim_{\nu,\epsilon} \rho^{-\epsilon}
+\avprod \ell^{q}_{\beta \in \Part[\alpha_i]{\rho}} \norm{ f_{\beta} }_{\avL^{t}(w_B)}.
+\end{equation}
+\end{corollary}
+
+Note that by \eqref{eq:alpha} for $1\leq l < k$ we have
+\begin{equation}
+\label{eq:alpha-ineq}
+\frac{1}{t_{l}}
+=
+\frac{\alpha_l}{t_{l+1}}+\frac{1-\alpha_l}{p_{l}}.
+\end{equation}
+
+
+For $1 \leq l < k$ by Corollary~\ref{cor:ball-inflation} and H\"older's inequality together with \eqref{eq:alpha-ineq} we obtain
+\begin{equation}
+\label{eq:est1}
+\begin{split}
+A_{t(l)}(b)
+&=
+A_{t_{l}}(b,lb)
+\\ &\lesssim_{\epsilon,K}
+\delta^{-b\epsilon} A_{t_{l}}(b,(l+1)b)
+\\ &\lesssim
+\delta^{-b\epsilon} A_{ t_{l+1}}(b,(l+1)b)^{\alpha_{l}}
+A_{ p_{l}}(b,(l+1)b)^{1-\alpha_{l}}
+\\ &=
+\delta^{-b\epsilon} A_{t(l+1)}(b)^{\alpha_{l}} A_{p(l)}(b)^{1-\alpha_{l}}.
+\end{split}
+\end{equation}
+This implies
+\begin{equation}
+\label{eq:a*:ball-inflation}
+a_{t(l)}(b) \leq \alpha_{l} a_{t(l+1)}(b) + (1-\alpha_{l}) a_{p(l)}(b).
+\end{equation}
+
+\subsubsection{Lower degree decoupling}
+By~\eqref{eq:beta} for $1 < l < k$ we have
+\begin{equation}
+\label{eq:beta-ineq}
+\frac{1}{p_{l}}
+=
+\frac{1-\beta_l}{p_{l-1}}+\frac{\beta_l}{t_{l}}.
+\end{equation}
+
+For $1 \leq l < k$ by the localized version of the decoupling inequality for the $l$-th moment curve and H\"older's inequality with \eqref{eq:beta-ineq} we obtain
+\begin{equation}
+\label{eq:est2}
+\begin{split}
+A_{p(l)}(b)
+&=
+A_{p_{l}}(b,(l+1)b)
+\\ &=
+L^{p}_{x} \avprod \ell^{2}_{\beta \in \Part[\alpha_i]{\delta^{b}}} \norm{f_{\beta}}_{\avL^{p_{l}}(w_{B(x,\delta^{-(l+1)b})})}
+\\ &\lesssim_{\epsilon}
+\delta^{-\epsilon b/l} L^{p}_{x} \avprod \ell^{2}_{\beta \in \Part[\alpha_i]{\delta^{(l+1)b/l}}} \norm{f_{\beta}}_{\avL^{p_{l}}(w_{B(x,\delta^{-(l+1)b})})}
+\\ &\leq
+\delta^{-\epsilon b/l}
+A_{t(l)}(\frac{(l+1)b}{l})^{\beta_{l}} A_{p(l-1)}(\frac{(l+1)b}{l})^{1-\beta_{l}}.
+\end{split}
+\end{equation}
+Note that this also holds for $l=1$ because $p_{1} \leq t_{1}$.
+This implies
+\begin{equation}
+\label{eq:a*:lower-deg-dec}
+a_{p(l)}(b) \leq \beta_{l} a_{t(l)}((l+1)b/l) + (1-\beta_{l}) a_{p(l-1)}((l+1)b/l)
+\end{equation}
+for $0<b<l/(l+1)$.
+
+\subsubsection{Wrapping up the induction}
+\begin{proposition}
+The inequalities \eqref{eq:a*:linear-dec}, \eqref{eq:a*:BG}, \eqref{eq:a*:ball-inflation}, and \eqref{eq:a*:lower-deg-dec} imply $\eta \leq 0$.
+\end{proposition}
+\begin{proof}
+We eliminate the dependence on $b$ by setting\footnote{This definition is from Tao's blog post\\\url{https://terrytao.wordpress.com/2019/06/14/abstracting-induction-on-scales-arguments/}}
+\[
+\tilde{a}_{*} := \liminf_{b \to 0} \frac{\eta - a_{*}(b)}{b}.
+\]
+The hypotheses then imply
+\[
+\tilde{a}_{*} \geq \eta.
+\]
+\[
+\tilde{a}_{*} \leq C.
+\]
+\[
+\tilde{a}_{t(l)} \geq \alpha_{l} \tilde{a}_{t(l+1)} + (1-\alpha_{l}) \tilde{a}_{p(l)}.
+\]
+\[
+\tilde{a}_{p(l)}(b) \geq \frac{l+1}{l} \bigl( \beta_{l} \tilde{a}_{t(l)} + (1-\beta_{l}) \tilde{a}_{p(l-1)} \bigr).
+\]
+Using \eqref{eq:a*:lower-deg-dec} let us verify the last of these inequalities, which is also the least obvious:
+\begin{align*}
+\tilde{a}_{p(l)}(b)
+&=
+\liminf_{b\to 0} \frac{\eta - a_{p(l)}(b)}{b}
+\\ &\geq
+\liminf_{b\to 0} \frac{\eta - \beta_{l} a_{t(l)}((l+1)b/l) - (1-\beta_{l})a_{p(l-1)}((l+1)b/l)}{b}
+\\ &\geq
+\frac{l+1}{l} \beta_{l} \liminf_{b\to 0} \frac{\eta - a_{t(l)}((l+1)b/l)}{(l+1)b/l}
++
+\frac{l+1}{l} (1-\beta_{l}) \liminf_{b\to 0} \frac{\eta - a_{p(l-1)}((l+1)b/l)}{(l+1)b/l}
+\\ &=
+\frac{l+1}{l} \bigl( \beta_{l} \tilde{a}_{t(l)} + (1-\beta_{l}) \tilde{a}_{p(l-1)} \bigr).
+\end{align*}
+Let
+\[
+W := \sum_{l=1}^{k-1} ( l \tilde{a}_{p(l)} + 2 l \tilde{a}_{t(l)} ).
+\]
+Applying all our inequalities we get
+\begin{align*}
+W & \geq
+\sum_{l=1}^{k-1} (l+1) \bigl( \beta_{l} \tilde{a}_{t(l)} + (1-\beta_{l}) \tilde{a}_{p(l-1)} \bigr)
++
+\sum_{l=1}^{k-1} 2 l (\alpha_{l} \tilde{a}_{t(l+1)} + (1-\alpha_{l}) \tilde{a}_{p(l)})
+\\ &=
+2(k-1)\alpha_{k-1} \tilde{a}_{t(k)}
++ \sum_{l=1}^{k-1} ( (l+1) \beta_{l} + 2 (l-1) \alpha_{l-1} ) \tilde{a}_{t(l)}
+\\ & \quad + \sum_{l=1}^{k-1} ( (l+2)(1-\beta_{l+1}) + 2l (1-\alpha_{l})) \tilde{a}_{p(l)},
+\end{align*}
+where by convention $\alpha_{0}=0$, $\beta_{k}=1$.
+Now from \eqref{eq:alpha} and \eqref{eq:beta} we compute
+\[
+\frac{1}{l/k}
+=
+\frac{\alpha_l}{(l+1)/k}+\frac{1-\alpha_l}{l(l+1)/(k(k+1))},
+\quad
+\frac{1}{l(l+1)/(k(k+1))}
+=
+\frac{1-\beta_l}{(l-1)l/(k(k+1))}+\frac{\beta_l}{l/k}.
+\]
+\[
+(l+1)/(k+1)
+=
+\frac{l}{k+1}\alpha_l+(1-\alpha_l),
+\quad
+\frac{1}{(l+1)/(k+1)}
+=
+\frac{1-\beta_l}{(l-1)/(k+1)}+\beta_l.
+\]
+\[
+\alpha_{l} = \frac{1-(l+1)/(k+1)}{1-l/(k+1)},
+\quad
+\beta_{l} = \frac{(k+1)/(l+1)-(k+1)/(l-1)}{1-(k+1)/(l-1)}
+\]
+\[
+\alpha_{l} = \frac{k-l}{k+1-l},
+\quad
+\beta_{l} = \frac{(k+1)(l-1) - (l+1)(k+1)}{((l-1)-(k+1))(l+1)}
+=
+\frac{2(k+1)}{(l+1)(k-l+2)}
+\]
+For $1<l<k$ we get
+\begin{multline*}
+(l+1)\beta_{l} + 2(l-1)\alpha_{l-1}
+=
+\frac{2(k+1)}{k-l+2} + 2(l-1)\frac{k-l+1}{k-l+2}
+\\ =
+2l + \frac{2(k+1)}{k-l+2} -\frac{k-l+1}{k-l+2} - 2l\frac{1}{k-l+2}
+=
+2l.
+\end{multline*}
+For $l=1$ this is easier.
+For $1\leq l \leq k-2$ we get
+\begin{multline*}
+(l+2)(1-\beta_{l+1}) + 2l (1-\alpha_{l})
+=
+(l+2)-\frac{2(k+1)}{k-l+1} + 2l \frac{1}{k-l+1}
+=
+l.
+\end{multline*}
+For $l=k-1$ this is again easier.
+Hence we get
+\[
+W \geq W + 2(k-1)\alpha_{k-1} \tilde{a}_{t(k)},
+\]
+so $\eta \leq \tilde{a}_{t(k)} \leq 0$.
+\end{proof}
+\begin{remark}
+The coefficients used to define $W$ are the Perron--Frobenius eigenvector of the matrix of coefficients of the inequalities for $\tilde{a}_{*}$'s.
+\end{remark}

@@ -1,0 +1,300 @@
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{xspace}
+\usepackage{mathtools}
+\usepackage{etoolbox}
+\usepackage{todonotes}
+
+% Companion to \to. Example:
+%  Let $ f \from A \to B $ be a function.
+\newcommand*{\from}{\colon}
+
+
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\Q}{\mathbb{Q}}
+\def\C{\mathbb{C}}
+\newcommand*{\N}{\mathbb{N}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\K}{\mathbb{K}}
+\newcommand*{\E}{\mathbb{E}}
+\newcommand*{\T}{\mathbb{T}}
+\newcommand*{\Rp}{\mathbb{R}_+}
+\newcommand*{\boundary}{\partial}
+\newcommand*{\id}{\mathrm{id}}
+\newcommand*{\Id}{\mathrm{Id}}
+\newcommand*{\Quot}{\mathrm{Quot}}
+\newcommand*{\Gal}{\mathrm{Gal}}
+\newcommand*{\hol}[1]{\mathcal{H}(#1)}
+\newcommand*{\Rang}[1]{\mathrm{Rang}\left(#1\right)}
+\newcommand*{\Mat}{\mathrm{Mat}}
+\newcommand*{\End}{\mathrm{End}}
+\newcommand*{\Aut}{\mathrm{Aut}}
+\newcommand*{\const}{\mathrm{const}}
+\newcommand*{\z}{\bar z}
+\newcommand*{\inv}{^{-1}}
+\newcommand*{\cconv}{\overline{\mathrm{conv}}\,}
+\newcommand*{\Union}{\bigcup\limits}
+\newcommand*{\Intersection}{\bigcap\limits}
+\newcommand*{\union}{\cup}
+\newcommand*{\intersection}{\cap}
+\newcommand*{\Sum}{\sum\limits}
+\newcommand*{\Product}[1]{\prod\limits_{#1}}
+\newcommand*{\Prod}{\prod\limits}
+\newcommand*{\Meet}{\bigwedge\limits}
+\newcommand*{\JOIN}{\bigvee\limits}
+\newcommand*{\join}{\vee}
+\newcommand*{\meet}{\wedge}
+\newcommand*{\with}{\,:\,}
+\newcommand*{\unit}[1]{\,\mathrm{#1}}
+\newcommand*{\BMO}{\mathrm{BMO}}
+\newcommand*{\VMO}{\mathrm{VMO}}
+\newcommand*{\Schwartz}{\mathcal{S}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand*{\widevec}[1]{\overrightarrow{#1}}
+
+% Differential d's
+\newcommand{\dif}{\mathop{}\!\mathrm{d}} % \mathop produces two thin spaces, \! removes the trailing one
+\newcommand*{\tdif}[3][]{\frac{\dif^{ #1} #2}{\dif { #3}^{ #1}}}
+\newcommand*{\ttdif}[2]{\frac{\dif^2 #1}{\dif {#2} ^2}}
+\newcommand*{\pdif}[3][]{\frac{\partial^{ #1} #2}{\partial { #3}^{ #1}}}
+\newcommand*{\ppdif}[2]{\frac{\partial^{2} #1}{\partial {#2}^{2}}}
+
+\let\sphi\phi % Stroked phi
+\renewcommand*{\phi}{\varphi}
+\renewcommand*{\epsilon}{\varepsilon}
+
+\def\<{\left\langle}
+\def\>{\right\rangle}
+
+% DeclareMathOperator without the repetition
+\newcommand*{\DMO}[1]{\expandafter\DeclareMathOperator\csname #1\endcsname {#1}}
+
+\DMO{card}
+\DMO{Ran}
+\DMO{diam}
+\DMO{dist}
+\DMO{dom}
+\DMO{Ad}
+\DMO{ad}
+\DMO{Shift}
+\DMO{esssup}
+\DMO{tr}
+\DMO{grad}
+\DMO{Kern}
+\DMO{Bild}
+\DMO{Lin}
+\DMO{Hom}
+\DMO{lin}
+\DMO{sg}
+\DMO{sign}
+\DMO{ord}
+\DMO{supp}
+\DMO{ggT}
+\DMO{kgV}
+\DMO{Res}
+\DMO{Ann}
+\DMO{Ass}
+\DMO{Rad}
+\DMO{conv}
+\DMO{im}
+\DMO{lcm}
+\DMO{rank}
+
+% Theorem-like environments
+\theoremstyle{plain}
+\ifdefined\theorem\else % Already defined by beamer
+\newtheorem{theorem}{Theorem}
+\newtheorem{thm}[theorem]{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{lem}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{cor}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\ifdefined\section % May be not defined in scrlttr2
+\numberwithin{equation}{section}
+\numberwithin{theorem}{section}
+\else\fi
+\fi
+
+\theoremstyle{remark}
+\ifdefined\remark\else % Already defined by beamer
+\newtheorem*{remark}{Remark}
+\newtheorem*{claim}{Claim}
+\fi
+\newtheorem*{speculation}{Speculation}
+\newtheorem*{prob}{Problem}
+\ifdefined\example\else % Already defined by beamer
+\newtheorem*{example}{Example}
+\fi
+\ifdefined\question\else % Already defined by beamer
+\newtheorem*{question}{Question}
+\fi
+
+\theoremstyle{definition}
+\ifdefined\definition\else % Already defined by beamer
+\newtheorem{definition}[theorem]{Definition}
+\fi
+\newtheorem{defi}[theorem]{Definition}
+
+% Proper names with accents
+\newcommand*{\Frechet}{Fr\'echet\xspace} % Fréchet
+\newcommand*{\Konig}{K\H{o}nig\xspace} % Kőnig
+\newcommand*{\Cesaro}{Ces\`aro\xspace} % Cesàro
+\newcommand*{\Folner}{F\o{}lner\xspace} % Følner
+
+% Absolute values and norms using mathtools. \[lr][vV]ert produces correct spacing as opposed to | and \|.
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiterX\innerp[2]{\langle}{\rangle}{#1,#2}
+% just to make sure it exists
+\providecommand\given{}
+% can be useful to refer to this outside \Set
+\newcommand\SetSymbol[1][]{%
+\nonscript\:#1\vert
+\allowbreak
+\nonscript\:
+\mathopen{}}
+\DeclarePairedDelimiterX\Set[1]\{\}{%
+\renewcommand\given{\SetSymbol[\delimsize]}
+#1
+}
+
+% Alexander Perlis | A complement to \smash, \llap, and \rlap
+% math.arizona.edu/~aprl/publications/mathclap/
+% For comparison, the existing overlap macros:
+% \def\llap#1{\hbox to 0pt{\hss#1}}
+% \def\rlap#1{\hbox to 0pt{#1\hss}}
+\def\clap#1{\hbox to 0pt{\hss#1\hss}}
+\def\mathllap{\mathpalette\mathllapinternal}
+\def\mathrlap{\mathpalette\mathrlapinternal}
+\def\mathclap{\mathpalette\mathclapinternal}
+\def\mathllapinternal#1#2{%
+\llap{$\mathsurround=0pt#1{#2}$}}
+\def\mathrlapinternal#1#2{%
+\rlap{$\mathsurround=0pt#1{#2}$}}
+\def\mathclapinternal#1#2{%
+\clap{$\mathsurround=0pt#1{#2}$}}
+
+\def\PZdefchar#1{
+  \expandafter\def\csname frak#1\endcsname{\mathfrak{#1}}
+  \expandafter\def\csname bb#1\endcsname{\mathbb{#1}}
+  \expandafter\def\csname bf#1\endcsname{\mathbf{#1}}
+  \expandafter\def\csname scr#1\endcsname{\mathcal{#1}}
+  \expandafter\def\csname cal#1\endcsname{\mathcal{#1}}}
+\def\PZdefloop#1{\ifx#1\PZdefloop\else\PZdefchar#1\expandafter\PZdefloop\fi}
+\PZdefloop abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\PZdefloop
+
+% Work around beamer's \pause and amsmath's align incompatibility
+% https://tex.stackexchange.com/a/75550/30158
+\makeatletter
+\let\save@measuring@true\measuring@true
+\def\measuring@true{%
+  \save@measuring@true
+  \def\beamer@sortzero##1{\beamer@ifnextcharospec{\beamer@sortzeroread{##1}}{}}%
+  \def\beamer@sortzeroread##1<##2>{}%
+  \def\beamer@finalnospec{}%
+}
+\makeatother
+
+\def\PZdefchar#1{
+  \expandafter\def\csname frak#1\endcsname{\mathfrak{#1}}
+  \expandafter\def\csname bf#1\endcsname{\mathbf{#1}}
+  \expandafter\def\csname scr#1\endcsname{\mathcal{#1}}
+  \expandafter\def\csname cal#1\endcsname{\mathcal{#1}}}
+\def\PZdefloop#1{\ifx#1\PZdefloop\else\PZdefchar#1\expandafter\PZdefloop\fi}
+\PZdefloop abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\PZdefloop
+
+\def\tA{\tilde{A}}
+\def\tD{\tilde{D}}
+\def\tV{\tilde{V}}
+\def\tGamma{\tilde{\Gamma}}
+\def\tgamma{\tilde{\gamma}}
+\def\C{\mathbb{C}}
+
+\DeclarePairedDelimiterXPP\EE[1]{\E}{\lparen}{\rparen}{}{\renewcommand\given{\SetSymbol[\delimsize]}#1} % Conditional expectation \EE{ f \given A }
+
+\makeatletter
+\newcommand\@avsum[2]{%
+  {\sbox0{$\m@th#1\sum$}%
+   \vphantom{\usebox0}%
+   \ooalign{%
+     \hidewidth
+     \smash{\vrule height\dimexpr\ht0+1pt\relax depth\dimexpr\dp0+1pt\relax}%
+     \hidewidth\cr
+     $\m@th#1\sum$\cr
+   }%
+  }%
+}
+\newcommand{\avsum}{\mathop{\mathpalette\@avsum\relax}\displaylimits}
+\newcommand\@avprod[2]{%
+  {\sbox0{$\m@th#1\prod$}%
+   \vphantom{\usebox0}%
+   \ooalign{%
+     \hidewidth
+     \smash{\vrule height\dimexpr\ht0+1pt\relax depth\dimexpr\dp0+1pt\relax}%
+     \hidewidth\cr
+     $\m@th#1\prod$\cr
+   }%
+  }%
+}
+\newcommand{\avprod}{\mathop{\mathpalette\@avprod\relax}\displaylimits}
+\newcommand{\@avL}[2]{%
+\ooalign{{$\m@th#1\mbox{--}$}\cr {$\m@th#1 L$}\cr}}
+\newcommand{\avL}{\mathpalette\@avL\relax}
+\newcommand{\@avell}[2]{%
+\ooalign{{$\m@th#1\mbox{--}$}\cr {$\m@th#1 \ell$}\cr}}
+\newcommand{\avell}{\mathpalette\@avell\relax}
+\newcommand{\@avD}{%
+  \ooalign{{$\mathrm{D}$}\cr \hidewidth\raise.2ex\hbox{$\vert$}\hidewidth\cr}}
+\newcommand{\avDec}{\@avD\mathrm{ec}}
+\makeatother
+\newcommand{\Dec}{\mathrm{Dec}}
+\newcommand{\MulDec}{\mathrm{MulDec}}
+\newcommand{\RvSq}{\mathrm{RvSq}}
+\newcommand{\MlRvSq}{\mathrm{MlRvSq}}
+\newcommand{\BL}{\mathrm{BL}}
+\newcommand{\BLg}{\mathrm{BL}_{\mathbf{g}}}
+\newcommand{\ED}{E^{\calD}}
+\newcommand{\Part}[2][]{\calP(\ifstrempty{#1}{}{#1,}#2)} % Partition of #1 at scale #2.
+\newcommand{\Cov}[2][\R^{d+n}]{\calB(#1,#2)} % Covering of #1 at scale #2.
+
+\usepackage{esint}
+\newcommand{\MK}{\mathcal{K}}
+\newcommand{\Tubes}{\mathbf{T}}
+\def\FT{\mathcal{F}}
+
+\usepackage{tikz}
+% This code defines TikZ "parabola through" path operation, taken from
+% https://tex.stackexchange.com/a/429938/30158
+% In that post it is explained that TikZ builtin "parabola" is wrong.
+\makeatletter
+\def\pt@get#1#2{
+  \tikz@scan@one@point\pgfutil@firstofone#2\relax%
+  \csname pgf@x#1\endcsname=\pgf@x%
+  \csname pgf@y#1\endcsname=\pgf@y%
+}
+\tikzset{
+  parabola through/.style={
+    to path={{[x={(\pgf@xc,\pgf@yc)}, y=\parabola@y, shift=(\tikztostart)]
+      -- (0,0) .. controls (1/3,1/3) and (2/3,1/3) .. (1,0) \tikztonodes}--(\tikztotarget)}
+  },
+  parabola through/.prefix code={
+    \pt@get{a}{(\tikztostart)}\pt@get{b}{#1}\pt@get{c}{(\tikztotarget)}%
+    \advance\pgf@xb by-\pgf@xa\advance\pgf@yb by-\pgf@ya%
+    \advance\pgf@xc by-\pgf@xa\advance\pgf@yc by-\pgf@ya%
+    \pgfmathsetmacro\parabola@y{(\pgf@yc-\pgf@xc/\pgf@xb*\pgf@yb)%
+      /(\pgf@xb-\pgf@xc)*\pgf@xc}%
+  }
+}
+\makeatother
+
+\numberwithin{equation}{section}
+\theoremstyle{definition}
+\newtheorem{hypothesis}[equation]{Hypothesis}
+
+\renewcommand*{\det}{\qopname\relax o{det}} % equivalent to \nolimits
